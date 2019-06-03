@@ -15,14 +15,15 @@ struct Point {
 
 
 // Read n and n points in a file
-std::vector<Point> read_special_states(std::fstream fp) {
+std::vector<Point> read_special_states(std::fstream& fp) {
     int n_states = 0;
     int temp_x, temp_y;
     fp >> n_states;
     std::vector<Point> states(n_states);
-    for (auto state : states) {
+    for (auto& state : states) {
         fp >> temp_x >> temp_y;
-        state = Point(temp_x, temp_y);
+        state.x = temp_x;
+        state.y = temp_y;
     }
     return states;
 }
@@ -37,14 +38,14 @@ int init_board() {
     fp >> start_x >> start_y;
     Point start = {start_x, start_y};
 
-    Point* end_states = read_special_states(fp); 
+    std::vector<Point> end_states = read_special_states(fp); 
 
-    Point* obstacles = read_special_states(fp);
+    std::vector<Point> obstacles = read_special_states(fp);
 
-    while (std::getline(infile, line)) {
-        std::istringstream iss(line);
+    // while (std::getline(infile, line)) {
+    //     std::istringstream iss(line);
                 
-    }
+    // }
     return 0;
 }
 
@@ -53,4 +54,3 @@ int main() {
     init_board();
     return 0;
 }
-
