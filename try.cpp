@@ -28,7 +28,7 @@ std::vector<Point> read_special_states(std::fstream& fp) {
     return states;
 }
 
-int init_board() {
+int init_board(std::vector<Point>& end_states, std::vector<Point>& obstacles, std::vector<std::vector<float>>& board ) {
     std::fstream fp("input.txt");
    
     int n_row, n_col;
@@ -38,19 +38,24 @@ int init_board() {
     fp >> start_x >> start_y;
     Point start = {start_x, start_y};
 
-    std::vector<Point> end_states = read_special_states(fp); 
+    std::vector<Point> end_states = &read_special_states(fp); 
 
-    std::vector<Point> obstacles = read_special_states(fp);
+    std::vector<Point> obstacles = &read_special_states(fp);
 
-    // while (std::getline(infile, line)) {
-    //     std::istringstream iss(line);
-                
-    // }
+    std::vector<std::vector<float>> board(n_row, std::vector<float>(n_col));
+    for (int i = 0; i < n_row; i++) {
+        for (int j = 0; j < n_row; j++) {
+            fp >> board[i][j];
+        } 
+    }
     return 0;
 }
 
 
 int main() {
-    init_board();
+    std::vector<Point>* end_states;
+    std::vector<Point>* obstacles;
+    std::vector<Point>* board;
+    init_board(end_states, obstacles, board);
     return 0;
 }
