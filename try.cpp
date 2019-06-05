@@ -15,11 +15,9 @@ struct Point {
 
 
 // Read n and n points in a file
-std::vector<Point> read_special_states(std::fstream& fp) {
+std::vector<Point> read_special_states(std::fstream& fp, ) {
     int n_states = 0;
     int temp_x, temp_y;
-    fp >> n_states;
-    std::vector<Point> states(n_states);
     for (auto& state : states) {
         fp >> temp_x >> temp_y;
         state.x = temp_x;
@@ -28,7 +26,7 @@ std::vector<Point> read_special_states(std::fstream& fp) {
     return states;
 }
 
-int init_board(std::vector<Point>& end_states, std::vector<Point>& obstacles, std::vector<std::vector<float>>& board ) {
+int init_board(std::vector<Point>*& end_states, std::vector<Point>*& obstacles, std::vector<std::vector<float>>& board) {
     std::fstream fp("input.txt");
    
     int n_row, n_col;
@@ -38,9 +36,13 @@ int init_board(std::vector<Point>& end_states, std::vector<Point>& obstacles, st
     fp >> start_x >> start_y;
     Point start = {start_x, start_y};
 
-    std::vector<Point> end_states = &read_special_states(fp); 
+    int n_states;
+    fp >> n_states;
+    std::vector<Point> states(n_states);
+    
+    end_states = &read_special_states(fp); 
 
-    std::vector<Point> obstacles = &read_special_states(fp);
+    obstacles = &read_special_states(fp);
 
     std::vector<std::vector<float>> board(n_row, std::vector<float>(n_col));
     for (int i = 0; i < n_row; i++) {
@@ -55,7 +57,7 @@ int init_board(std::vector<Point>& end_states, std::vector<Point>& obstacles, st
 int main() {
     std::vector<Point>* end_states;
     std::vector<Point>* obstacles;
-    std::vector<Point>* board;
+    std::vector<float>* board;
     init_board(end_states, obstacles, board);
     return 0;
 }
