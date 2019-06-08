@@ -42,9 +42,17 @@ void init_board(Point& start_state, std::vector<Point>& end_states, std::vector<
     for (int i = 0; i < n_row; i++) {
         for (int j = 0; j < n_col; j++) {
             fp >> board[i][j];
-        } 
+        }
     }
-    return 0;
+}
+
+void calculate(std::vector<std::vector<float>>& board, std::vector<Point>& direction) {
+    for (int i = 0; i < board.size(); i++)
+        for (int j = 0; j < board[i].size(); j++) {
+            for (int d = 0; direction < d.size()) {
+                u[i,j] = board[i,j] + alpha*u[i,j];
+            }
+        } 
 }
 
 
