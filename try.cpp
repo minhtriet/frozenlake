@@ -23,18 +23,18 @@ void read_special_states(std::fstream& fp, std::vector<Point>& states ) {
     }
 }
 
-int init_board(Point& start_state, std::vector<Point>& end_states, std::vector<Point>& obstacles, std::vector<std::vector<float>>& board) {
+void init_board(Point& start_state, std::vector<Point>& end_states, std::vector<Point>& obstacles, std::vector<std::vector<float>>& board) {
     std::fstream fp("input.txt");
-   
+
     int n_row, n_col;
     fp >> n_row >> n_col;
-   
+
     int start_x, start_y;
     fp >> start_x >> start_y;
     start_state.x = start_x;
     start_state.y = start_y;
 
-    read_special_states(fp, end_states); 
+    read_special_states(fp, end_states);
 
     read_special_states(fp, obstacles);
 
@@ -54,10 +54,13 @@ int main() {
     std::vector<Point> obstacles;
     std::vector<std::vector<float>> board;
     init_board(start_state, end_states, obstacles, board);
-    for(int i=0;i<4;i++) {
-        for(int j=0;j<4;j++)
-            std::cout << board[i][j] << " ";
-        std::cout << "\n";
-    }
+    
+    // Moving vector and its probabilities
+    //
+    std::vector<float> probs = [0.8, 0.0, 0.1, 0.1];
+
+    std::vector<std::vector<float>> u;
+    calculate(board, u, p_forward, p_backward, p_right, p_left); 
     return 0;
 }
+
