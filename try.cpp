@@ -9,7 +9,48 @@ struct Point {
     int y;
     Point(): x{0}, y{0} {}
     Point(int x_, int y_): x{x_}, y{y_} {}
+
+    Point operator +(const Point& p1, const Point& p2) {
+        return Point(p1.x + p2.x, p1.y + p2.y);
+    }
 };
+
+class Board {
+    private:
+        bool is_inside(Point& location) {
+            if (location.x > 0) && (location.y > 0) \
+               && (location.x < self.width) && (location.y < self.height):
+                return true;
+             return false;
+        } 
+        
+    public:
+        int width;
+        int height;
+        std::vector<float> probs = [0.8, 0.1, 0.1];
+        std::vector<Point> direction = [Point(1, 0), Point(0, 1), Point(-1, 0), Point(0, -1)];
+        std::vector<Point> end_states;
+        std::vector<Point> obstacles;
+        float reward;
+
+
+        bool move(Point& current_location, Point& direction, float& reward, prob=probs[0]) {
+            if prob == probs[0] {
+                std::vector<float> temp_reward(3);
+                if (direction.x) == 0 {
+                    // move to direction x with 0.1 probs
+                    move(current_location, Point(-1, direction.y), float& temp_reward[1], probs[1]);
+                    move(current_location, Point(1, direction.y), float& temp_reward[2], probs[2]);
+                }
+                if (direction.y == 0) {
+                    // move to direction x with 0.1 probs
+                    move(current_location, Point(direction.x, -1), float& temp_reward[1], probs[1]);
+                    move(current_location, Point(direction.x, 1 ), float& temp_reward[2], probs[2]);
+                }
+            }
+            Point new_position = current_location + direction;
+        }
+}    
 
 
 // Read n and n points in a file
@@ -51,7 +92,8 @@ void init_board(Point& start_state, std::vector<Point>& end_states, std::vector<
 void calculate(std::vector<std::vector<float>>& board, std::vector<Point>& direction, std::vector<std::vector<float>>& u) {
     for (int i = 0; i < board.size(); i++)
         for (int j = 0; j < board[i].size(); j++) {
-            float temp_reward, best_reward = ;
+            float temp_reward, best_reward = std::numeric_limits<float>::min();
+            int best_direction = 
             for (int d = 0; d < direction.size(); d++) {
                 int temp_i = i - direction[d].y;
                 int temp_j = j - direction[d].x;
@@ -70,10 +112,6 @@ int main() {
     
     // Moving vector and its probabilities
     //
-    std::vector<float> probs = [0.8, 0.0, 0.1, 0.1];
-
-    std::vector<Point> direction = [Point(1, 0), Point];
-
 
     std::vector<std::vector<float>> u;
     calculate(board, u, p_forward, p_backward, p_right, p_left); 
