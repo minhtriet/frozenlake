@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <limits>
+
 
 struct Point {
     int x;
@@ -46,11 +48,14 @@ void init_board(Point& start_state, std::vector<Point>& end_states, std::vector<
     }
 }
 
-void calculate(std::vector<std::vector<float>>& board, std::vector<Point>& direction) {
+void calculate(std::vector<std::vector<float>>& board, std::vector<Point>& direction, std::vector<std::vector<float>>& u) {
     for (int i = 0; i < board.size(); i++)
         for (int j = 0; j < board[i].size(); j++) {
-            for (int d = 0; direction < d.size()) {
-                u[i,j] = board[i,j] + alpha*u[i,j];
+            float temp_reward, best_reward = ;
+            for (int d = 0; d < direction.size(); d++) {
+                int temp_i = i - direction[d].y;
+                int temp_j = j - direction[d].x;
+                temp_reward = board[temp_i, temp_j]*probs[d];
             }
         } 
 }
@@ -66,6 +71,9 @@ int main() {
     // Moving vector and its probabilities
     //
     std::vector<float> probs = [0.8, 0.0, 0.1, 0.1];
+
+    std::vector<Point> direction = [Point(1, 0), Point];
+
 
     std::vector<std::vector<float>> u;
     calculate(board, u, p_forward, p_backward, p_right, p_left); 
