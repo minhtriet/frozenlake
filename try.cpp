@@ -103,7 +103,7 @@ void init_board(Point& start_state, Board& board) {
     for (int i = 0; i < board.end_states.size(); i++) {
         float temp_reward;
         fp >> temp_reward;
-        board.end_reward.insert(std::pair<board.end_states[i], temp_reward>);
+        board.end_reward.insert(std::pair<Point, float>(board.end_states[i], temp_reward));
     }
     fp >> board.reward;
 }
@@ -116,6 +116,7 @@ void calculate(const Point& start, const Board& board) {
 int main() {
     Point start_state;
     Board board;
+    const std::vector<float>  Board::probs = {0.8, 0.2, 0.2};
     init_board(start_state, board);
     
     // Moving vector and its probabilities
