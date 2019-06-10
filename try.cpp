@@ -21,6 +21,10 @@ class Board {
                && (location.x < self.width) && (location.y < self.height):
                 return true;
              return false;
+        }
+        
+        bool is_end_state(Point& location) {
+            std::find(this->end_reward.begin(), this->end_reward.end(), location); 
         } 
         
     public:
@@ -29,14 +33,18 @@ class Board {
         std::vector<float> probs = [0.8, 0.1, 0.1];
         std::vector<Point> direction = [Point(1, 0), Point(0, 1), Point(-1, 0), Point(0, -1)];
         std::vector<Point> end_states;
+        std::map<Point, float> end_reward;
         std::vector<Point> obstacles;
         float reward;
 
-
-        bool move(Point& current_location, Point& direction, float& reward, prob=probs[0]) {
-            if prob == probs[0] {
+        /**
+            @param location and move
+            @return reward of that move
+        */
+        float move(Point& current_location, Point& direction, prob=probs[0]) {
+            if (prob == probs[0]) {
                 std::vector<float> temp_reward(3);
-                if (direction.x) == 0 {
+                if (direction.x == 0) {
                     // move to direction x with 0.1 probs
                     move(current_location, Point(-1, direction.y), float& temp_reward[1], probs[1]);
                     move(current_location, Point(1, direction.y), float& temp_reward[2], probs[2]);
