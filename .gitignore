@@ -2,3 +2,5 @@
 version
 *.out
 *.swp
+*.ipynb
+.ipynb_checkpoints/**

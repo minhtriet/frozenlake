@@ -24,7 +24,7 @@ class Board {
         }
         
         bool is_end_state(Point& location) {
-            std::find(this->end_reward.begin(), this->end_reward.end(), location); 
+            std::find(this->end_reward.begin(), this->end_reward.end(), location)
         } 
         
     public:
@@ -94,26 +94,24 @@ void init_board(Point& start_state, Board& board) {
     start_state.x = start_x;
     start_state.y = start_y;
 
-    read_special_states(fp, end_states);
-
-    read_special_states(fp, obstacles);
-
-    board.resize(n_row, std::vector<float>(n_col));
-    for (int i = 0; i < n_row; i++) {
-        for (int j = 0; j < n_col; j++) {
-            fp >> board[i][j];
-        }
+    read_special_states(fp, board.end_states);
+    read_special_states(fp, board.obstacles);
+    for (int i = 0; i < board.end_states.size(); i++) {
+        float temp_reward;
+        fp >> temp_reward;
+        board.end_reward.add(std::pair<board.end_states[i], temp_reward>);
     }
+    fp >> board.reward;
 }
 
-void calculate(std::vector<std::vector<float>>& board, std::vector<Point>& direction, std::vector<std::vector<float>>& u) {
+void calculate(Board& board) {
     for (int i = 0; i < board.size(); i++)
         for (int j = 0; j < board[i].size(); j++) {
             float temp_reward, best_reward = std::numeric_limits<float>::min();
-            int best_direction = 
-            for (int d = 0; d < direction.size(); d++) {
-                int temp_i = i - direction[d].y;
-                int temp_j = j - direction[d].x;
+            int best_direction = 0;
+            for (int d = 0; d < board.direction.size(); d++) {
+                int temp_i = i - board.direction[d].y;
+                int temp_j = j - board.direction[d].x;
                 temp_reward = board[temp_i, temp_j]*probs[d];
             }
         } 
@@ -122,16 +120,11 @@ void calculate(std::vector<std::vector<float>>& board, std::vector<Point>& direc
 
 int main() {
     Point start_state;
-    std::vector<Point> end_states;
-    std::vector<Point> obstacles;
-    std::vector<std::vector<float>> board;
-    init_board(start_state, end_states, obstacles, board);
+    Board board;
+    init_board(start_state, board);
     
     // Moving vector and its probabilities
-    //
-
-    std::vector<std::vector<float>> u;
-    calculate(board, u, p_forward, p_backward, p_right, p_left); 
+    calculate(board);
     return 0;
 }
 
