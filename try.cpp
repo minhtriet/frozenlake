@@ -17,21 +17,24 @@ struct Point {
 class Board {
     private:
         bool is_inside(Point& location) {
-            if (location.x > 0) && (location.y > 0) \
-               && (location.x < self.width) && (location.y < self.height)
+            if ((location.x > 0) && (location.y > 0) \
+               && (location.x < this->width) && (location.y < this->height))
                 return true;
              return false;
         }
         
-        bool is_end_state(Point& location) {
-            std::find(this->end_reward.begin(), this->end_reward.end(), location);
-            return false;
-        } 
+        int is_in_vector(const Point& location, const std::vector<Point>& to_check) {
+            auto it = std::find(to_check.begin(), to_check.end(), location);
+            if (it != std::end(to_check)) {
+                return -1;
+            }
+            return std::distance(to_check.begin(), it);
+        }
         
+        static const std::vector<float> probs;
     public:
         int width;
         int height;
-        const std::vector<float> probs{0.8, 0.1, 0.1};
         std::vector<Point> direction{Point(1, 0), Point(0, 1), Point(-1, 0), Point(0, -1)};
         std::vector<Point> end_states;
         std::map<Point, float> end_reward;
