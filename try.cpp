@@ -56,8 +56,18 @@ class Board {
                 }
             }
             Point new_position = current_location + direction;
+            if (!this->is_inside(new_position)) {
+                return 0;
+            }
+            if (this->is_obstacle(new_position)) {
+                return 0;
+            }
+            if (this->is_end_state(new_position)) {
+                return 0;
+            }
+            return prob*reward;
         }
-}    
+}; 
 
 
 // Read n and n points in a file
@@ -73,7 +83,7 @@ void read_special_states(std::fstream& fp, std::vector<Point>& states ) {
     }
 }
 
-void init_board(Point& start_state, std::vector<Point>& end_states, std::vector<Point>& obstacles, std::vector<std::vector<float>>& board) {
+void init_board(Point& start_state, Board& board) {
     std::fstream fp("input.txt");
 
     int n_row, n_col;
