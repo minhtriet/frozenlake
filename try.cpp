@@ -45,7 +45,7 @@ class Board {
             @param location and move
             @return reward of that move
         */
-        float move(Point& current_loc, Point& direction, prob=this->probs[0]) {
+        float move(const Point& current_loc, const Point& direction, const float prob=probs[0]) {
             float total_reward = 0;
             if (prob == probs[0]) {
                 if (direction.x == 0) {
@@ -63,11 +63,11 @@ class Board {
             if (!this->is_inside(new_loc)) {
                 return 0;
             }
-            if (this->is_obstacle(new_loc)) {
+            if (this->is_in_vector(new_loc, this->obstacles)) {
                 return 0;
             }
-            if (this->is_end_state(new_loc)) {
-                return 0;
+            if (this->is_in_vector(new_loc, this->end_states)) {
+                return this->end_reward[new_loc];
             }
             return prob*reward;
         }
