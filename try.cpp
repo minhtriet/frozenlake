@@ -18,20 +18,21 @@ class Board {
     private:
         bool is_inside(Point& location) {
             if (location.x > 0) && (location.y > 0) \
-               && (location.x < self.width) && (location.y < self.height):
+               && (location.x < self.width) && (location.y < self.height)
                 return true;
              return false;
         }
         
         bool is_end_state(Point& location) {
-            std::find(this->end_reward.begin(), this->end_reward.end(), location)
+            std::find(this->end_reward.begin(), this->end_reward.end(), location);
+            return false;
         } 
         
     public:
         int width;
         int height;
-        std::vector<float> probs = [0.8, 0.1, 0.1];
-        std::vector<Point> direction = [Point(1, 0), Point(0, 1), Point(-1, 0), Point(0, -1)];
+        const std::vector<float> probs{0.8, 0.1, 0.1};
+        std::vector<Point> direction{Point(1, 0), Point(0, 1), Point(-1, 0), Point(0, -1)};
         std::vector<Point> end_states;
         std::map<Point, float> end_reward;
         std::vector<Point> obstacles;
@@ -41,28 +42,28 @@ class Board {
             @param location and move
             @return reward of that move
         */
-        float move(Point& current_location, Point& direction, prob=probs[0]) {
+        float move(Point& current_loc, Point& direction, prob=this->probs[0]) {
+            float total_reward = 0;
             if (prob == probs[0]) {
-                std::vector<float> temp_reward(3);
                 if (direction.x == 0) {
                     // move to direction x with 0.1 probs
-                    move(current_location, Point(-1, direction.y), float& temp_reward[1], probs[1]);
-                    move(current_location, Point(1, direction.y), float& temp_reward[2], probs[2]);
+                    total_reward += move(current_loc, Point(-1, direction.y), this->probs[1]);
+                    total_reward += move(current_loc, Point(1, direction.y), this->probs[2]);
                 }
                 if (direction.y == 0) {
                     // move to direction x with 0.1 probs
-                    move(current_location, Point(direction.x, -1), float& temp_reward[1], probs[1]);
-                    move(current_location, Point(direction.x, 1 ), float& temp_reward[2], probs[2]);
+                    total_reward += move(current_loc, Point(direction.x, -1), this->probs[1]);
+                    total_reward += move(current_loc, Point(direction.x, 1), this->probs[2]);
                 }
             }
-            Point new_position = current_location + direction;
-            if (!this->is_inside(new_position)) {
+            Point new_loc = current_loc + direction;
+            if (!this->is_inside(new_loc)) {
                 return 0;
             }
-            if (this->is_obstacle(new_position)) {
+            if (this->is_obstacle(new_loc)) {
                 return 0;
             }
-            if (this->is_end_state(new_position)) {
+            if (this->is_end_state(new_loc)) {
                 return 0;
             }
             return prob*reward;
@@ -99,22 +100,13 @@ void init_board(Point& start_state, Board& board) {
     for (int i = 0; i < board.end_states.size(); i++) {
         float temp_reward;
         fp >> temp_reward;
-        board.end_reward.add(std::pair<board.end_states[i], temp_reward>);
+        board.end_reward.insert(std::pair<board.end_states[i], temp_reward>);
     }
     fp >> board.reward;
 }
 
-void calculate(Board& board) {
-    for (int i = 0; i < board.size(); i++)
-        for (int j = 0; j < board[i].size(); j++) {
-            float temp_reward, best_reward = std::numeric_limits<float>::min();
-            int best_direction = 0;
-            for (int d = 0; d < board.direction.size(); d++) {
-                int temp_i = i - board.direction[d].y;
-                int temp_j = j - board.direction[d].x;
-                temp_reward = board[temp_i, temp_j]*probs[d];
-            }
-        } 
+void calculate(const Point& start, const Board& board) {
+    
 }
 
 
@@ -124,7 +116,7 @@ int main() {
     init_board(start_state, board);
     
     // Moving vector and its probabilities
-    calculate(board);
+    calculate(start_state, board);
     return 0;
 }
 
