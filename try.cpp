@@ -2,16 +2,15 @@
 #include <fstream>
 #include <vector>
 #include <limits>
-
+#include <map>
 
 struct Point {
     int x;
     int y;
     Point(): x{0}, y{0} {}
     Point(int x_, int y_): x{x_}, y{y_} {}
-
-    Point operator +(const Point& p1, const Point& p2) {
-        return Point(p1.x + p2.x, p1.y + p2.y);
+    Point operator+(const Point& p1) {
+        return Point(p1.x + this->x, p1.y + this->y);
     }
 };
 
