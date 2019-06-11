@@ -4,6 +4,8 @@
 #include <limits>
 #include <map>
 
+#include "Point.cpp"
+
 struct Point {
     int x;
     int y;
@@ -40,7 +42,7 @@ class Board {
         std::map<Point, float> end_reward;
         std::vector<Point> obstacles;
         float reward;
-
+        Board(): probs{1,2,3} {}
         /**
             @param location and move
             @return reward of that move
@@ -116,7 +118,7 @@ void calculate(const Point& start, const Board& board) {
 int main() {
     Point start_state;
     Board board;
-    const std::vector<float>  Board::probs = {0.8, 0.2, 0.2};
+    const std::vector<float>  Board::probs{0.8, 0.2, 0.2};
     init_board(start_state, board);
     
     // Moving vector and its probabilities
