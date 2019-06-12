@@ -1,6 +1,4 @@
 #include <vector>
-
-#include "Point.cpp"
 #include "Board.h"
 
 

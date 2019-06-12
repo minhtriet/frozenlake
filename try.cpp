@@ -4,7 +4,7 @@
 #include <limits>
 #include <map>
 
-#include "Point.cpp"
+//#include "Point.cpp"
 #include "Board.cpp"
 
 // Read n and n points in a file
