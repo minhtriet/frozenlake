@@ -5,67 +5,7 @@
 #include <map>
 
 #include "Point.cpp"
-
-
-class Board {
-    private:
-        bool is_inside(Point& location) {
-            if ((location.x > 0) && (location.y > 0) \
-               && (location.x < this->width) && (location.y < this->height))
-                return true;
-             return false;
-        }
-        
-        int is_in_vector(const Point& location, const std::vector<Point>& to_check) {
-            auto it = std::find(to_check.begin(), to_check.end(), location);
-            if (it != std::end(to_check)) {
-                return -1;
-            }
-            return std::distance(to_check.begin(), it);
-        }
-        
-        static const std::vector<float> probs;
-    public:
-        int width;
-        int height;
-        std::vector<Point> direction{Point(1, 0), Point(0, 1), Point(-1, 0), Point(0, -1)};
-        std::vector<Point> end_states;
-        std::map<Point, float> end_reward;
-        std::vector<Point> obstacles;
-        float reward;
-        Board(): probs{1,2,3} {}
-        /**
-            @param location and move
-            @return reward of that move
-        */
-        float move(const Point& current_loc, const Point& direction, const float prob=probs[0]) {
-            float total_reward = 0;
-            if (prob == probs[0]) {
-                if (direction.x == 0) {
-                    // move to direction x with 0.1 probs
-                    total_reward += move(current_loc, Point(-1, direction.y), this->probs[1]);
-                    total_reward += move(current_loc, Point(1, direction.y), this->probs[2]);
-                }
-                if (direction.y == 0) {
-                    // move to direction x with 0.1 probs
-                    total_reward += move(current_loc, Point(direction.x, -1), this->probs[1]);
-                    total_reward += move(current_loc, Point(direction.x, 1), this->probs[2]);
-                }
-            }
-            Point new_loc = current_loc + direction;
-            if (!this->is_inside(new_loc)) {
-                return 0;
-            }
-            if (this->is_in_vector(new_loc, this->obstacles)) {
-                return 0;
-            }
-            if (this->is_in_vector(new_loc, this->end_states)) {
-                return this->end_reward[new_loc];
-            }
-            return prob*reward;
-        }
-}; 
-
+#include "Board.cpp"
 
 // Read n and n points in a file
 void read_special_states(std::fstream& fp, std::vector<Point>& states ) {
