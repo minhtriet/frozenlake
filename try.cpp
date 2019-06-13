@@ -49,7 +49,6 @@ void calculate(const Point& start, const Board& board) {
 int main() {
     Point start_state;
     Board board;
-    const std::vector<float>  Board::probs{0.8, 0.2, 0.2};
     init_board(start_state, board);
     
     // Moving vector and its probabilities

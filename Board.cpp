@@ -43,5 +43,3 @@ float Board::move(const Point& current_loc, const Point& direction, const float 
     }
     return prob*reward;
 }
-
-Board::probs{1,2,3}
