@@ -4,11 +4,9 @@
 #include <limits>
 #include <map>
 
-//#include "Point.cpp"
 #include "Board.cpp"
 
-// Read n and n points in a file
-void read_special_states(std::fstream& fp, std::vector<Point>& states ) {
+void read_special_states(std::fstream& fp, std::vector<Point>& states) {
     int n_states;
     int temp_x, temp_y;
     fp >> n_states;

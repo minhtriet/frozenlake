@@ -1,3 +1,3 @@
 #!/bin/sh
-clang++ -std=c++17 -g Point.cpp Board.h try.cpp
+clang++ -std=c++17 -g try.cpp
 ./a.out

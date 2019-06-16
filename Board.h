@@ -1,8 +1,7 @@
-#pragma once
-
-#include "Point.cpp"
 #include <vector>
 #include <map>
+
+#include "Point.cpp"
 
 class Board {
     private:
