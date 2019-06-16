@@ -17,7 +17,7 @@ int Board::is_in_vector(const Point& location, const std::vector<Point>& to_chec
     return std::distance(to_check.begin(), it);
 }
 
-float Board::move(const Point& current_loc, const Point& direction, float prob=0.8) {
+float Board::move(const Point& current_loc, const Point& direction, float prob) {
     float total_reward = 0;
     if (prob == probs[0]) {
         if (direction.x == 0) {
@@ -33,10 +33,10 @@ float Board::move(const Point& current_loc, const Point& direction, float prob=0
     }
     Point new_loc = current_loc + direction;
     if (!this->is_inside(new_loc)) {
-        return 0;
+        return this->reward;
     }
     if (this->is_in_vector(new_loc, this->obstacles)) {
-        return 0;
+        return this->reward;
     }
     if (this->is_in_vector(new_loc, this->end_states)) {
         return this->end_reward[new_loc];

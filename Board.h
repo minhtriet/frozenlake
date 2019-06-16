@@ -16,7 +16,7 @@ class Board {
         std::map<Point, float> end_reward;
         std::vector<Point> obstacles;
         float reward;
-        float move(const Point& current_loc, const Point& direction, const float prob);
+        float move(const Point& current_loc, const Point& direction, float prob=0.8);
         Board(): probs{1,2,3} {}
 }; 
 

@@ -39,8 +39,10 @@ void init_board(Point& start_state, Board& board) {
     fp >> board.reward;
 }
 
-void calculate(const Point& start, const Board& board) {
-    
+void calculate(const Point& start, Board& board) {
+    for (auto direction : board.direction) {
+        float result = board.move(start, direction);
+    }
 }
 
 
