@@ -39,10 +39,18 @@ void init_board(Point& start_state, Board& board) {
     fp >> board.reward;
 }
 
-void calculate(const Point& start, Board& board) {
-    for (auto direction : board.direction) {
-        float result = board.move(start, direction);
-    }
+void calculate(const Point& start, Board& board, std::vector<Point> visited_position) {
+    float best_result = std::numeric_limits<float>::min();
+    Point best_direction;
+    for (int i = 0; i < board->height; i++)
+        for (int j = 0; j < board->width; j++)
+            for (auto direction : board.direction) {
+                float result = board.move(start, direction);
+                if (best_result < result) {
+                    best_result = result;
+                    best_direction = direction;
+                }
+            }
 }
 
 
