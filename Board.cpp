@@ -18,6 +18,12 @@ int Board::is_in_vector(const Point& location, const std::vector<Point>& to_chec
 }
 
 float Board::move(const Point& current_loc, const Point& direction, float prob) {
+    if (this->is_in_vector(current_loc, this->obstacles)) {
+        return 0;
+    }
+    if (this->is_in_vector(current_loc, this->end_states)) {
+        return this->end_reward[current_loc];
+    }
     float total_reward = 0;
     if (prob == probs[0]) {
         if (direction.x == 0) {
