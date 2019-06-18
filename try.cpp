@@ -6,6 +6,16 @@
 
 #include "Board.cpp"
 
+template <typename T>
+void print(const std::vector<std::vector<T>>& matrix) {
+    for (int i=0; i < matrix.length; i++) {
+        for (int j=0; j < matrix[0].length; j++) {
+            std::cout << matrix[i][j] << " ";
+        }
+        std::cout << "\n";
+    }
+}
+
 void read_special_states(std::fstream& fp, std::vector<Point>& states) {
     int n_states;
     int temp_x, temp_y;
@@ -40,6 +50,7 @@ void init_board(Point& start_state, Board& board) {
     }
     fp >> board.reward;
 }
+
 
 int main() {
     Point start_state;

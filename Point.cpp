@@ -11,3 +11,5 @@ bool operator==(const Point& p0, const Point& p1) {
 bool operator<(const Point& p0, const Point& p1) {
     return (p1.x < p0.x) || (p1.y < p0.y);
 }
+std::ostream &operator<<(std::ostream& os, Point& const p) {
+}

@@ -1,3 +1,5 @@
+#include <ostream>
+
 struct Point {
     int x;
     int y;
@@ -7,4 +9,6 @@ struct Point {
         Point operator+(const Point& p1);
         bool operator==(const Point& p1);
         bool operator<(const Point& p1);
+        bool operator<(const Point& p1);
+        std::ostream operator<<(const Point& p) ;
 };
