@@ -8,8 +8,8 @@
 
 template <typename T>
 void print(const std::vector<std::vector<T>>& matrix) {
-    for (int i=0; i < matrix.length; i++) {
-        for (int j=0; j < matrix[0].length; j++) {
+    for (int i=0; i < matrix.size(); i++) {
+        for (int j=0; j < matrix[0].size(); j++) {
             std::cout << matrix[i][j] << " ";
         }
         std::cout << "\n";
@@ -72,6 +72,8 @@ int main() {
                     best_direction = direction;
                 }
             }
+    print(best_value);
+    print(best_policy);    
     return 0;
 }
 
