@@ -39,14 +39,14 @@ float Board::move(const Point& current_loc, const Point& direction, float prob) 
     }
     Point new_loc = current_loc + direction;
     if (!this->is_inside(new_loc)) {
-        return this->reward;
+        return total_reward + this->reward * prob;
     }
     if (this->is_in_vector(new_loc, this->obstacles)) {
-        return this->reward;
+        return total_reward + this->reward * prob;
     }
     if (this->is_in_vector(new_loc, this->end_states)) {
-        return this->end_reward[new_loc];
+        return total_reward + this->end_reward[new_loc] * prob;
     }
-    return prob*reward;
+    return total_reward;
 }
 
