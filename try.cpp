@@ -60,7 +60,7 @@ int main() {
     std::vector<std::vector<float>> best_value(board.height, std::vector<float>(board.width));
     // Moving vector and its probabilities
     std::vector<std::vector<Point>> best_policy(board.height, std::vector<Point>(board.width));
-    
+
     float best_result = std::numeric_limits<float>::min();
     Point best_direction;
     for (int i = 0; i < board.height; i++)
@@ -73,7 +73,6 @@ int main() {
                 }
             }
     print(best_value);
-    print(best_policy);    
+    print(best_policy);
     return 0;
 }
-
