@@ -58,8 +58,8 @@ int main() {
     init_board(start_state, board);
     // Save best result and best direction
     std::vector<std::vector<float>> best_value(board.height, std::vector<float>(board.width));
-    std::vector<std::vector<Point>> best_policy(board.height, std::vector<Point>(board.width));
     // Moving vector and its probabilities
+    std::vector<std::vector<Point>> best_policy(board.height, std::vector<Point>(board.width));
     
     float best_result = std::numeric_limits<float>::min();
     Point best_direction;

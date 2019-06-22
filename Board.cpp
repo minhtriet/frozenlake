@@ -9,12 +9,12 @@ bool Board::is_inside(Point& location) {
      return false;
 }
 
-int Board::is_in_vector(const Point& location, const std::vector<Point>& to_check) {
+bool Board::is_in_vector(const Point& location, const std::vector<Point>& to_check) {
     auto it = std::find(to_check.begin(), to_check.end(), location);
     if (it != std::end(to_check)) {
-        return -1;
+        return false;
     }
-    return std::distance(to_check.begin(), it);
+    return true;
 }
 
 float Board::move(const Point& current_loc, const Point& direction, float prob) {
@@ -25,7 +25,7 @@ float Board::move(const Point& current_loc, const Point& direction, float prob) 
         return this->end_reward[current_loc];
     }
     float total_reward = 0;
-    if (prob == probs[0]) {
+    if (prob == this->probs[0]) {
         if (direction.x == 0) {
             // move to direction x with 0.1 probs
             total_reward += move(current_loc, Point(-1, direction.y), this->probs[1]);

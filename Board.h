@@ -7,7 +7,7 @@ class Board {
     private:
         bool is_inside(Point& location);
         int is_in_vector(const Point& location, const std::vector<Point>& to_check);
-        const std::vector<float> probs;
+        const std::vector<float> probs{0.8, 0.1, 0.1};
     public:
         int width;
         int height;
@@ -17,6 +17,5 @@ class Board {
         std::vector<Point> obstacles;
         float reward;
         float move(const Point& current_loc, const Point& direction, float prob=0.8);
-        Board(): probs{1,2,3} {}
 }; 
 
