@@ -57,25 +57,25 @@ int main() {
     Board board;
     init_board(start_state, board);
     // Save best result and best direction
-    std::vector<std::vector<float>> best_value(board.height, std::vector<float>(board.width));
+    std::vector<std::vector<float>> best_value(board.height, std::vector<float>(board.width, 0));
     // Moving vector and its probabilities
     std::vector<std::vector<Point>> best_policy(board.height, std::vector<Point>(board.width));
 
-    
-    for (int i = 0; i < board.height; i++)
-        for (int j = 0; j < board.width; j++) {
-            float best_result = std::numeric_limits<float>::lowest();
-            Point best_direction;
-            for (auto direction : board.direction) {
-                float result = board.move(Point(i, j), direction);
-                if (best_result < result) {
-                    best_result = result;
-                    best_direction = direction;
+    for (int iteration = 0; iteration < 1000; iteration++) 
+        for (int i = 0; i < board.height; i++)
+            for (int j = 0; j < board.width; j++) {
+                float best_result = std::numeric_limits<float>::lowest();
+                Point best_direction;
+                for (auto direction : board.direction) {
+                    float result = board.move(Point(i, j), direction, best_value);
+                    if (best_result < result) {
+                        best_result = result;
+                        best_direction = direction;
+                    }
                 }
+                best_value[i][j] = best_result;
+                best_policy[i][j] = best_direction;
             }
-            best_value[i][j] = best_result;
-            best_policy[i][j] = best_direction;
-        }
     print(best_value);
     print(best_policy);
     return 0;
