@@ -1,18 +1,19 @@
 #include <vector>
+#include <algorithm>
 #include "Board.h"
 
 
 bool Board::is_inside(Point& location) {
-    if ((location.x > 0) && (location.y > 0) \
+    if ((location.x >= 0) && (location.y >= 0) \
        && (location.x < this->width) && (location.y < this->height))
         return true;
      return false;
 }
 
 bool Board::is_in_vector(const Point& location, const std::vector<Point>& to_check) {
-    auto it = std::find(to_check.begin(), to_check.end(), location);
-    if (it != to_check.end())
+    if (std::find(to_check.begin(), to_check.end(), location) != to_check.end()) {
         return true;
+    }
     return false;
 }
 
@@ -37,15 +38,17 @@ float Board::move(const Point& current_loc, const Point& direction, float prob) 
         }
     }
     Point new_loc = current_loc + direction;
-    if (!this->is_inside(new_loc)) {
-        return total_reward + this->reward * prob;
-    }
+    std::cout << new_loc;
     if (this->is_in_vector(new_loc, this->obstacles)) {
         return total_reward + this->reward * prob;
     }
     if (this->is_in_vector(new_loc, this->end_states)) {
         return total_reward + this->end_reward[new_loc] * prob;
     }
+    if (!this->is_inside(new_loc)) {
+        return total_reward + this->reward * prob;
+    }
+   
     return total_reward;
 }
 
