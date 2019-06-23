@@ -38,7 +38,6 @@ float Board::move(const Point& current_loc, const Point& direction, float prob) 
         }
     }
     Point new_loc = current_loc + direction;
-    std::cout << new_loc;
     if (this->is_in_vector(new_loc, this->obstacles)) {
         return total_reward + this->reward * prob;
     }
