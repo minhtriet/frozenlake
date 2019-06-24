@@ -16,8 +16,8 @@ class Board {
         std::vector<Point> obstacles;
         float reward;
         float gamma{0.9};
-        float move(const Point& current_loc, const Point& direction, const std::vector<std::vector<float>> &value);
-        float move(const Point& current_loc, const Point& direction, const std::vector<std::vector<float>> &value, float prob);
+        float move(const Point& current_loc, const Point& direction, const std::vector<std::vector<float>> &value, int timestep);
+        float move(const Point& current_loc, const Point& direction, const std::vector<std::vector<float>> &value, int timestep, float prob);
         const std::vector<float> probs{0.8, 0.1, 0.1};
 }; 
 

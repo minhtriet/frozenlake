@@ -61,13 +61,13 @@ int main() {
     // Moving vector and its probabilities
     std::vector<std::vector<Point>> best_policy(board.height, std::vector<Point>(board.width));
 
-    for (int iteration = 0; iteration < 1000; iteration++) 
+    for (int iteration = 0; iteration < 30; iteration++) 
         for (int i = 0; i < board.height; i++)
             for (int j = 0; j < board.width; j++) {
                 float best_result = std::numeric_limits<float>::lowest();
                 Point best_direction;
                 for (auto direction : board.direction) {
-                    float result = board.move(Point(i, j), direction, best_value);
+                    float result = board.move(Point(i, j), direction, best_value, gamma, iteration);
                     if (best_result < result) {
                         best_result = result;
                         best_direction = direction;

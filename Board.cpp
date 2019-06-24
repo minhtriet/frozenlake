@@ -1,6 +1,7 @@
 #include <vector>
 #include <algorithm>
 #include <cassert>
+#include <cmath>
 #include "Board.h"
 
 
@@ -18,11 +19,11 @@ bool Board::is_in_vector(const Point& location, const std::vector<Point>& to_che
     return false;
 }
 
-float Board::move(const Point& current_loc, const Point& direction, const std::vector<std::vector<float>>& value) {
-    return Board::move(current_loc, direction, value, this->probs[0]);
+float Board::move(const Point& current_loc, const Point& direction, const std::vector<std::vector<float>>& value, int timestep) {
+    return Board::move(current_loc, direction, value, this->probs[0], timestep);
 }
 
-float Board::move(const Point& current_loc, const Point& direction, const std::vector<std::vector<float>>& value, float prob) {
+float Board::move(const Point& current_loc, const Point& direction, const std::vector<std::vector<float>>& value, int timestep, float prob) {
     if (this->is_in_vector(current_loc, this->obstacles)) {
         return 0;
     }
@@ -36,13 +37,13 @@ float Board::move(const Point& current_loc, const Point& direction, const std::v
     if (prob == this->probs[0]) {
         if (direction.x == 0) {
             // move to direction x with 0.1 probs
-            total_reward += move(current_loc, Point(-1, 0), value, this->probs[1]);
-            total_reward += move(current_loc, Point(1, 0), value, this->probs[2]);
+            total_reward += move(current_loc, Point(-1, 0), value, timestep, this->probs[1]);
+            total_reward += move(current_loc, Point(1, 0), value, timestep, this->probs[2]);
         }
         if (direction.y == 0) {
             // move to direction x with 0.1 probs
-            total_reward += move(current_loc, Point(0, -1), value, this->probs[1]);
-            total_reward += move(current_loc, Point(0, 1), value, this->probs[2]);
+            total_reward += move(current_loc, Point(0, -1), value, timestep, this->probs[1]);
+            total_reward += move(current_loc, Point(0, 1), value, timestep, this->probs[2]);
         }
     }
     Point new_loc = current_loc + direction;
@@ -53,7 +54,7 @@ float Board::move(const Point& current_loc, const Point& direction, const std::v
         return total_reward + this->end_reward[new_loc] * prob;
     }
     if (this->is_inside(new_loc)) {
-        return total_reward + this->reward * prob + this->gamma*value[new_loc.y][new_loc.x];
+        return total_reward + this->reward * prob + std::pow(this->gamma, timestep) * value[new_loc.y][new_loc.x];
     } else {
         return total_reward + this->reward * prob + this->gamma*value[current_loc.y][current_loc.x];
     }
