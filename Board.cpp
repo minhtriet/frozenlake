@@ -33,13 +33,13 @@ float Board::move(const Point& current_loc, const Point& direction, const std::v
     if (prob == this->probs[0]) {
         if (direction.x == 0) {
             // move to direction x with 0.1 probs
-            total_reward += move(current_loc, Point(-1, direction.y), value, this->probs[1]);
-            total_reward += move(current_loc, Point(1, direction.y), value, this->probs[2]);
+            total_reward += move(current_loc, Point(-1, 0), value, this->probs[1]);
+            total_reward += move(current_loc, Point(1, 0), value, this->probs[2]);
         }
         if (direction.y == 0) {
             // move to direction x with 0.1 probs
-            total_reward += move(current_loc, Point(direction.x, -1), value, this->probs[1]);
-            total_reward += move(current_loc, Point(direction.x, 1), value, this->probs[2]);
+            total_reward += move(current_loc, Point(0, -1), value, this->probs[1]);
+            total_reward += move(current_loc, Point(0, 1), value, this->probs[2]);
         }
     }
     Point new_loc = current_loc + direction;
@@ -51,8 +51,8 @@ float Board::move(const Point& current_loc, const Point& direction, const std::v
     }
     if (this->is_inside(new_loc)) {
         return total_reward + this->reward * prob + this->gamma*value[new_loc.y][new_loc.x];
+    } else {
+        return total_reward + this->reward * prob + this->gamma*value[current_loc.y][current_loc.x];
     }
-    assert(total_reward == 0);
-    return total_reward;
 }
 
