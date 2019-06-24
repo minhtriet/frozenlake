@@ -4,7 +4,7 @@
 #include "Board.h"
 
 
-bool Board::is_inside(Point& location) {
+bool Board::is_inside(const Point& location) {
     if ((location.x >= 0) && (location.y >= 0) \
        && (location.x < this->width) && (location.y < this->height))
         return true;
@@ -28,6 +28,9 @@ float Board::move(const Point& current_loc, const Point& direction, const std::v
     }
     if (this->is_in_vector(current_loc, this->end_states)) {
         return this->end_reward[current_loc];
+    }
+    if (!this->is_inside(current_loc)) {
+        return 0;
     }
     float total_reward = 0;
     if (prob == this->probs[0]) {
