@@ -67,7 +67,7 @@ int main() {
                 float best_result = std::numeric_limits<float>::lowest();
                 Point best_direction;
                 for (auto direction : board.direction) {
-                    float result = board.move(Point(i, j), direction, best_value, gamma, iteration);
+                    float result = board.move(Point(i, j), direction, best_value, iteration);
                     if (best_result < result) {
                         best_result = result;
                         best_direction = direction;
