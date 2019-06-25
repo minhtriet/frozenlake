@@ -20,10 +20,12 @@ bool Board::is_in_vector(const Point& location, const std::vector<Point>& to_che
 }
 
 float Board::move(const Point& current_loc, const Point& direction, const std::vector<std::vector<float>>& value, int timestep) {
-    return Board::move(current_loc, direction, value, this->probs[0], timestep);
+    std::cout << this->probs[0];
+    return Board::move(current_loc, direction, value, timestep, this->probs[0]);
 }
 
 float Board::move(const Point& current_loc, const Point& direction, const std::vector<std::vector<float>>& value, int timestep, float prob) {
+    std::cout << " ---- " << prob << "\n";
     if (this->is_in_vector(current_loc, this->obstacles)) {
         return 0;
     }
@@ -56,7 +58,7 @@ float Board::move(const Point& current_loc, const Point& direction, const std::v
     if (this->is_inside(new_loc)) {
         return total_reward + this->reward * prob + std::pow(this->gamma, timestep) * value[new_loc.y][new_loc.x];
     } else {
-        return total_reward + this->reward * prob + std::pow(this->gamma, timestep) *value[current_loc.y][current_loc.x];
+        return total_reward + this->reward * prob + std::pow(this->gamma, timestep) * value[current_loc.y][current_loc.x];
     }
 }
 
