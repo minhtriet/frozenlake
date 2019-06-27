@@ -24,6 +24,7 @@ float Board::move(const Point& current_loc, const Point& direction, const std::v
 }
 
 float Board::move(const Point& current_loc, const Point& direction, const std::vector<std::vector<float>>& value, int timestep, float prob) {
+    // std::cout<<current_loc << " " << direction << " " << prob << "\n";
     if (this->is_in_vector(current_loc, this->obstacles)) {
         return 0;
     }
