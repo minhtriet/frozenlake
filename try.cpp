@@ -8,9 +8,9 @@
 
 template <typename T>
 void print(const std::vector<std::vector<T>>& matrix) {
-    for (int i=0; i < matrix.size(); i++) {
-        for (int j=0; j < matrix[0].size(); j++) {
-            std::cout << matrix[i][j] << " ";
+    for (int j=0; j < matrix[0].size(); j++) {
+        for (int i=0; i < matrix.size(); i++) {
+            std::cout << matrix[j][i] << " ";
         }
         std::cout << "\n";
     }
