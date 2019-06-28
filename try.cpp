@@ -62,19 +62,17 @@ int main() {
     std::vector<std::vector<Point>> best_policy(board.height, std::vector<Point>(board.width));
 
     for (int iteration = 0; iteration < 1; iteration++) 
-        for (int i = 0; i < board.width; i++)
-            for (int j = 0; j < board.height; j++) {
+        for (int y = 0; y < board.height; y++) 
+            for (int x = 0; x < board.width; x++) {
                 float best_result = std::numeric_limits<float>::lowest();
                 Point best_direction;
                 for (auto direction : board.direction) {
-                    float result = board.move(Point(i, j), direction, best_value, iteration);
+                    float result = board.move(Point(x, y), direction, best_value, iteration);
                     if (best_result < result) {
-                        best_result = result;
-                        best_direction = direction;
+                        best_value[x][y] = result;
+                        best_policy[x][y] = best_direction;
                     }
                 }
-                best_value[i][j] = best_result;
-                best_policy[i][j] = best_direction;
             }
     print(best_value);
     print(best_policy);
