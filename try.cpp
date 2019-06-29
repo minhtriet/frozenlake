@@ -10,7 +10,7 @@ template <typename T>
 void print(const std::vector<std::vector<T>>& matrix) {
     for (int j=0; j < matrix[0].size(); j++) {
         for (int i=0; i < matrix.size(); i++) {
-            std::cout << matrix[j][i] << " ";
+            std::cout << matrix[i][j] << " ";
         }
         std::cout << "\n";
     }
@@ -59,7 +59,7 @@ int main() {
     // Save best result and best direction
     std::vector<std::vector<float>> best_value(board.width, std::vector<float>(board.height, 0));
     // Moving vector and its probabilities
-    std::vector<std::vector<Point>> best_policy(board.width, std::vector<Point>(board.height));
+    std::vector<std::vector<Point>> best_policy(board.width, std::vector<Point>(board.height, Point(0,0)));
 
     for (int iteration = 0; iteration < 1; iteration++) 
         for (int y = 0; y < board.height; y++) 
