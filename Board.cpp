@@ -24,7 +24,6 @@ float Board::move(const Point& current_loc, const Point& direction, const std::v
 }
 
 float Board::move(const Point& current_loc, const Point& direction, const std::vector<std::vector<float>>& value, int timestep, float prob) {
-    // std::cout<<current_loc << " " << direction << " " << prob << "\n";
     if (!this->is_inside(current_loc)) {
         return 0;
     }
