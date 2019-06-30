@@ -24,17 +24,18 @@ float Board::move(const Point& current_loc, const Point& direction, const std::v
 }
 
 float Board::move(const Point& current_loc, const Point& direction, const std::vector<std::vector<float>>& value, int timestep, float prob) {
-    if (!this->is_inside(current_loc)) {
-        return 0;
-    }
-    if (this->is_in_vector(current_loc, this->obstacles)) {
-        return 0;
-    }
-    if (this->is_in_vector(current_loc, this->end_states)) {
-        return this->end_reward[current_loc];
-    }
     float total_reward = 0;
     if (std::abs(prob - this->probs[0]) < 0.0001) {
+        // only check when in 1st move
+        if (!this->is_inside(current_loc)) {
+            return 0;
+        }
+        if (this->is_in_vector(current_loc, this->obstacles)) {
+            return 0;
+        }
+        if (this->is_in_vector(current_loc, this->end_states)) {
+            return this->end_reward[current_loc];
+        }
         if (direction.x == 0) {
             total_reward += move(current_loc, Point(-1, 0), value, timestep, this->probs[1]);
             total_reward += move(current_loc, Point(1, 0), value, timestep, this->probs[2]);
