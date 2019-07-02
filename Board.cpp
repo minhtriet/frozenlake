@@ -25,11 +25,8 @@ float Board::move(const Point& current_loc, const Point& direction, const std::v
 
 float Board::move(const Point& current_loc, const Point& direction, const std::vector<std::vector<float>>& value, int timestep, float prob) {
     float total_reward = 0;
-    if (std::abs(prob - this->probs[0]) < 0.0001) {
-        // only check when in 1st move
-        if (!this->is_inside(current_loc)) {
-            return 0;
-        }
+    if (std::abs(prob - this->probs[0]) < 0.0001) {  // 1st move
+        total_reward = this->reward;
         if (this->is_in_vector(current_loc, this->obstacles)) {
             return 0;
         }
@@ -47,15 +44,15 @@ float Board::move(const Point& current_loc, const Point& direction, const std::v
     }
     Point new_loc = current_loc + direction;
     if (this->is_in_vector(new_loc, this->obstacles)) {
-        return total_reward + this->reward * prob + std::pow(this->gamma, timestep) * value[current_loc.x][current_loc.y];
+        return total_reward + prob * std::pow(this->gamma, timestep) * value[current_loc.x][current_loc.y];
     }
     if (this->is_in_vector(new_loc, this->end_states)) {
-        return total_reward + this->end_reward[new_loc] * prob;
+        return total_reward + prob * this->end_reward[new_loc];
     }
     if (this->is_inside(new_loc)) {
-        return total_reward + this->reward * prob + std::pow(this->gamma, timestep) * value[new_loc.x][new_loc.y];
+        return total_reward + prob * std::pow(this->gamma, timestep) * value[new_loc.x][new_loc.y];
     } else {
-        return total_reward + this->reward * prob + std::pow(this->gamma, timestep) * value[current_loc.x][current_loc.y];
+        return total_reward + prob * std::pow(this->gamma, timestep) * value[current_loc.x][current_loc.y];
     }
 }
 
