@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cmath>
+#include "util.cpp"
 #include "Board.h"
 
 
@@ -10,13 +11,6 @@ bool Board::is_inside(const Point& location) {
        && (location.x < this->width) && (location.y < this->height))
         return true;
      return false;
-}
-
-bool Board::is_in_vector(const Point& location, const std::vector<Point>& to_check) {
-    if (std::find(to_check.begin(), to_check.end(), location) != to_check.end()) {
-        return true;
-    }
-    return false;
 }
 
 float Board::move(const Point& current_loc, const Point& direction, const std::vector<std::vector<float>>& value, int timestep) {

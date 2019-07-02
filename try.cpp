@@ -3,7 +3,7 @@
 #include <vector>
 #include <limits>
 #include <map>
-
+#include <queue>
 #include "Board.cpp"
 
 template <typename T>
@@ -60,22 +60,24 @@ int main() {
     std::vector<std::vector<float>> best_value(board.width, std::vector<float>(board.height, 0));
     // Moving vector and its probabilities
     std::vector<std::vector<Point>> best_policy(board.width, std::vector<Point>(board.height, Point(0,0)));
-
+    
+    std::queue<Point> schedule;
+    std::vector<Point> visited;
     for (int iteration = 0; iteration < 1; iteration++) {
-        for (int y = 0; y < board.height; y++) 
-            for (int x = 0; x < board.width; x++) {
-                float best_result = std::numeric_limits<float>::lowest();
-                Point best_direction;
-                for (auto direction : board.direction) {
-                    float result = board.move(Point(x, y), direction, best_value, iteration);
-                    if (best_result < result) {
-                        best_result = result;
-                        best_direction = direction;
-                    }
+        schedule.push(start_state);
+        while schedule.length() > 0:
+            Point p = schedule.pop();
+            float best_result = std::numeric_limits<float>::lowest();
+            Point best_direction;
+            for (auto direction : board.direction) {
+                float result = board.move(Point(x, y), direction, best_value, iteration);
+                if (best_result < result) {
+                    best_result = result;
+                    best_direction = direction;
                 }
-                best_value[x][y] = best_result;
-                best_policy[x][y] = best_direction;
             }
+        best_value[x][y] = best_result;
+        best_policy[x][y] = best_direction;
     }
     print(best_value);
     print(best_policy);

@@ -6,7 +6,6 @@
 class Board {
     private:
         bool is_inside(const Point& location);
-        bool is_in_vector(const Point& location, const std::vector<Point>& to_check);
     public:
         int width;
         int height;
