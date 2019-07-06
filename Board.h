@@ -6,8 +6,8 @@
 class Board {
     private:
         bool is_inside(const Point& location);
-        std::vector<std::vector<bool>> visited;
     public:
+        std::vector<std::vector<bool>> visited;
         int width;
         int height;
         std::vector<Point> direction{Point(1, 0), Point(0, 1), Point(-1, 0), Point(0, -1)};

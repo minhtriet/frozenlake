@@ -41,6 +41,8 @@ void init_board(Point& start_state, Board& board) {
     start_state.x = start_x;
     start_state.y = start_y;
 
+    board.visited = std::vector(width, std::vector<bool>(height), false);
+
     read_special_states(fp, board.end_states);
     read_special_states(fp, board.obstacles);
     for (int i = 0; i < board.end_states.size(); i++) {
@@ -63,12 +65,13 @@ int main() {
     
     std::queue<Point> schedule;
     std::vector<Point> visited;
+
     for (int iteration = 0; iteration < 1; iteration++) {
         schedule.push(start_state);
+        Point best_direction;
         while schedule.length() > 0:
             Point p = schedule.pop();
             float best_result = std::numeric_limits<float>::lowest();
-            Point best_direction;
             for (auto direction : board.direction) {
                 float result = board.move(Point(x, y), direction, best_value, iteration);
                 if (best_result < result) {
