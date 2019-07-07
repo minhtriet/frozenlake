@@ -2,8 +2,6 @@
 #include <fstream>
 #include <vector>
 #include <limits>
-#include <map>
-#include <queue>
 #include "Board.cpp"
 
 template <typename T>
@@ -36,13 +34,12 @@ void init_board(Point& start_state, Board& board) {
     board.height = n_row;
     board.width = n_col;
 
-    int start_x, start_y;
-    fp >> start_x >> start_y;
-    start_state.x = start_x;
-    start_state.y = start_y;
-
-    board.visited = std::vector(width, std::vector<bool>(height), false);
-
+    fp >> start_state.x >> start_state.y;
+    board.init(start_state); 
+    // Save best result and best direction
+    board.best_value = std::vector(n_col, std::vector<float>(n_row, 0));
+    // Moving vector and its probabilities
+    std::vector<std::vector<Point>> best_policy(board.width, std::vector<Point>(board.height, Point(0,0)));
     read_special_states(fp, board.end_states);
     read_special_states(fp, board.obstacles);
     for (int i = 0; i < board.end_states.size(); i++) {
@@ -58,31 +55,6 @@ int main() {
     Point start_state;
     Board board;
     init_board(start_state, board);
-    // Save best result and best direction
-    std::vector<std::vector<float>> best_value(board.width, std::vector<float>(board.height, 0));
-    // Moving vector and its probabilities
-    std::vector<std::vector<Point>> best_policy(board.width, std::vector<Point>(board.height, Point(0,0)));
-    
-    std::queue<Point> schedule;
-    std::vector<Point> visited;
-
-    for (int iteration = 0; iteration < 1; iteration++) {
-        schedule.push(start_state);
-        Point best_direction;
-        while schedule.length() > 0:
-            Point p = schedule.pop();
-            float best_result = std::numeric_limits<float>::lowest();
-            for (auto direction : board.direction) {
-                float result = board.move(Point(x, y), direction, best_value, iteration);
-                if (best_result < result) {
-                    best_result = result;
-                    best_direction = direction;
-                }
-            }
-        best_value[x][y] = best_result;
-        best_policy[x][y] = best_direction;
-    }
-    print(best_value);
-    print(best_policy);
+    board.run(); 
     return 0;
 }
