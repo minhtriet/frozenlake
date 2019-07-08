@@ -55,8 +55,10 @@ float Board::move(const Point& current_loc, const Point& direction,
         return total_reward + prob * this->end_reward[new_loc];
     }
     if (this->is_inside(new_loc)) {
-        this->schedule.push(new_loc);
-        this->step[new_loc] = this->step.find(current_loc)->second + 1;
+        if (!util::is_in_vector(new_loc, visited)) {
+            this->schedule.push(new_loc);
+            this->step[new_loc] = this->step.find(current_loc)->second + 1;
+        }
         return total_reward + prob * std::pow(this->gamma, timestep) * 
             this->best_value[new_loc.x][new_loc.y];
     } else {
