@@ -55,6 +55,8 @@ int main() {
     Point start_state;
     Board board;
     init_board(start_state, board);
-    board.run(); 
+    board.run();
+    print(board.best_value);
+    print(board.best_policy); 
     return 0;
 }
