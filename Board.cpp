@@ -68,7 +68,7 @@ float Board::move(const Point& current_loc, const Point& direction,
 int Board::run() {
     while (this->schedule.size() > 0) {
         for (auto direction : this->direction) {
-            this->move(schedule.front(), direction);
+            reward = this->move(schedule.front(), direction);
         }
         this->visited.insert(this->visited.begin(), schedule.front());
         this->schedule.pop();
