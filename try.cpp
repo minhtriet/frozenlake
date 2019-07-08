@@ -36,10 +36,8 @@ void init_board(Point& start_state, Board& board) {
 
     fp >> start_state.x >> start_state.y;
     board.init(start_state); 
-    // Save best result and best direction
     board.best_value = std::vector(n_col, std::vector<float>(n_row, 0));
-    // Moving vector and its probabilities
-    std::vector<std::vector<Point>> best_policy(board.width, std::vector<Point>(board.height, Point(0,0)));
+    board.best_policy = std::vector(n_col, std::vector<Point>(n_row, Point(0,0)));
     read_special_states(fp, board.end_states);
     read_special_states(fp, board.obstacles);
     for (int i = 0; i < board.end_states.size(); i++) {
