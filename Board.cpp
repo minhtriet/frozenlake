@@ -67,10 +67,19 @@ float Board::move(const Point& current_loc, const Point& direction,
 
 int Board::run() {
     while (this->schedule.size() > 0) {
+        float best_result = std::numeric_limits<float>::lowest();
+        Point best_direction;
+        Point p = schedule.front();
         for (auto direction : this->direction) {
-            reward = this->move(schedule.front(), direction);
+            float result = this->move(p, direction);
+            if (best_result < result) {
+                best_result = result;
+                best_direction = direction;
+            }
         }
-        this->visited.insert(this->visited.begin(), schedule.front());
+        this->best_value[p.x][p.y] = best_result;
+        this->best_policy[p.x][p.y] = best_direction;
+        this->visited.insert(this->visited.begin(), p);
         this->schedule.pop();
     }
     return 0;
