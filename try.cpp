@@ -36,7 +36,8 @@ void init_board(Point& start_state, Board& board) {
 
     fp >> start_state.x >> start_state.y;
     board.init(start_state); 
-    board.best_value = std::vector(n_col, std::vector<float>(n_row, 0));
+    board.best_value = std::vector(n_col, 
+            std::vector<float>(n_row, std::numeric_limits<float>::lowest()));
     board.best_policy = std::vector(n_col, std::vector<Point>(n_row, Point(0,0)));
     read_special_states(fp, board.end_states);
     read_special_states(fp, board.obstacles);

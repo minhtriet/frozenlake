@@ -21,15 +21,6 @@ bool Board::is_inside(const Point& location) {
 
 float Board::move(const Point& current_loc, const Point& direction) {
     // edge cases
-    if (util::is_in_vector(current_loc, this->obstacles)) {
-        return 0;
-    }
-    if (util::is_in_vector(current_loc, this->end_states)) {
-        return this->end_reward[current_loc];
-    }
-    if (util::is_in_vector(current_loc, visited)) {
-        return std::numeric_limits<float>::lowest();
-    }
     // push new points to visit schedule
     Point new_loc = current_loc + direction;
     if (!util::is_in_vector(new_loc, visited) && (this->is_inside(new_loc))
@@ -78,18 +69,23 @@ float Board::move(const Point& current_loc, const Point& direction,
 
 int Board::run() {
     while (this->schedule.size() > 0) {
-        float best_result = std::numeric_limits<float>::lowest();
-        Point best_direction;
         Point p = schedule.front();
-        for (auto direction : this->direction) {
-            float result = this->move(p, direction);
-            if (best_result < result) {
-                best_result = result;
-                best_direction = direction;
+        if ((util::is_in_vector(p, this->obstacles)) || 
+                (util::is_in_vector(p, visited))) {
+            continue;
+        }
+        if (util::is_in_vector(p, this->end_states)) {
+            this->best_value[p.x][p.y] = end_reward[p];
+        } else {
+            float result;
+            for (auto direction : this->direction) {
+                result = this->move(p, direction);
+                if (this->best_value[p.x][p.y] < result) {
+                    this->best_value[p.x][p.y] = result;
+                    this->best_policy[p.x][p.y] = direction;
+                }
             }
         }
-        this->best_value[p.x][p.y] = best_result;
-        this->best_policy[p.x][p.y] = best_direction;
         this->visited.insert(this->visited.begin(), p);
         this->schedule.pop();
     }
