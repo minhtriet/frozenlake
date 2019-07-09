@@ -24,8 +24,7 @@ float Board::move(const Point& current_loc, const Point& direction) {
     // push new points to visit schedule
     Point new_loc = current_loc + direction;
     if (!util::is_in_vector(new_loc, visited) && (this->is_inside(new_loc))
-            && (!util::is_in_vector(new_loc, this->obstacles))
-            && (!util::is_in_vector(new_loc, this->end_states))) {
+            && (!util::is_in_vector(new_loc, this->obstacles))) {
         this->schedule.push(new_loc);
         this->step[new_loc] = this->step.find(current_loc)->second + 1;
     }
@@ -68,27 +67,28 @@ float Board::move(const Point& current_loc, const Point& direction,
 }
 
 int Board::run() {
-    while (this->schedule.size() > 0) {
-        Point p = schedule.front();
-        if ((util::is_in_vector(p, this->obstacles)) || 
-                (util::is_in_vector(p, visited))) {
-            this->schedule.pop();
-            continue;
-        }
-        if (util::is_in_vector(p, this->end_states)) {
-            this->best_value[p.x][p.y] = end_reward[p];
-        } else {
-            float result;
-            for (auto direction : this->direction) {
-                result = this->move(p, direction);
-                if (this->best_value[p.x][p.y] < result) {
-                    this->best_value[p.x][p.y] = result;
-                    this->best_policy[p.x][p.y] = direction;
+    for (int i = 0; i < 5; i++)
+        while (this->schedule.size() > 0) {
+            Point p = schedule.front();
+            if ((util::is_in_vector(p, this->obstacles)) || 
+                    (util::is_in_vector(p, visited))) {
+                this->schedule.pop();
+                continue;
+            }
+            if (util::is_in_vector(p, this->end_states)) {
+                this->best_value[p.x][p.y] = end_reward[p];
+            } else {
+                float result;
+                for (auto direction : this->direction) {
+                    result = this->move(p, direction);
+                    if (this->best_value[p.x][p.y] < result) {
+                        this->best_value[p.x][p.y] = result;
+                        this->best_policy[p.x][p.y] = direction;
+                    }
                 }
             }
+            this->visited.insert(this->visited.begin(), p);
+            this->schedule.pop();
         }
-        this->visited.insert(this->visited.begin(), p);
-        this->schedule.pop();
-    }
     return 0;
 }
