@@ -67,7 +67,7 @@ float Board::move(const Point& current_loc, const Point& direction,
 }
 
 int Board::run() {
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++) {
         while (this->schedule.size() > 0) {
             Point p = schedule.front();
             if ((util::is_in_vector(p, this->obstacles)) || 
@@ -90,5 +90,8 @@ int Board::run() {
             this->visited.insert(this->visited.begin(), p);
             this->schedule.pop();
         }
+        util::print(this->best_value);
+        util::print(this->best_policy);
+    }
     return 0;
 }

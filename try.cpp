@@ -55,7 +55,5 @@ int main() {
     Board board;
     init_board(start_state, board);
     board.run();
-    print(board.best_value);
-    print(board.best_policy); 
     return 0;
 }

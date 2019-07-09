@@ -1,14 +1,25 @@
 #include<vector>
+#include <iostream>
 
 namespace util {
 
-    template <typename T>
+    template <typename T> 
         bool is_in_vector(const T& location, const std::vector<T>& to_check) {
             if (std::find(to_check.begin(), to_check.end(), location) 
                     != to_check.end()) {
                 return true;
             }
             return false;
+        }
+
+    template <typename T> 
+        void print(const std::vector<std::vector<T>>& matrix) {
+            for (int j=0; j < matrix[0].size(); j++) {
+                for (int i=0; i < matrix.size(); i++) {
+                    std::cout << matrix[i][j] << " ";
+                }
+                std::cout << "\n";
+            }
         }
 
 }
