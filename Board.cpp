@@ -72,6 +72,7 @@ int Board::run() {
         Point p = schedule.front();
         if ((util::is_in_vector(p, this->obstacles)) || 
                 (util::is_in_vector(p, visited))) {
+            this->schedule.pop();
             continue;
         }
         if (util::is_in_vector(p, this->end_states)) {
