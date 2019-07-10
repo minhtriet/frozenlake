@@ -1,18 +1,8 @@
-#include <iostream>
 #include <fstream>
 #include <vector>
 #include <limits>
 #include "Board.cpp"
 
-template <typename T>
-void print(const std::vector<std::vector<T>>& matrix) {
-    for (int j=0; j < matrix[0].size(); j++) {
-        for (int i=0; i < matrix.size(); i++) {
-            std::cout << matrix[i][j] << " ";
-        }
-        std::cout << "\n";
-    }
-}
 
 void read_special_states(std::fstream& fp, std::vector<Point>& states) {
     int n_states;
@@ -42,9 +32,7 @@ void init_board(Point& start_state, Board& board) {
     read_special_states(fp, board.end_states);
     read_special_states(fp, board.obstacles);
     for (int i = 0; i < board.end_states.size(); i++) {
-        float temp_reward;
-        fp >> temp_reward;
-        board.end_reward.insert(std::pair<Point, float>(board.end_states[i], temp_reward));
+        fp >> board.best_value[board.end_states[i].x][board.end_states[i].y];
     }
     fp >> board.reward;
 }

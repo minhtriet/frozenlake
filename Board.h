@@ -17,7 +17,6 @@ class Board {
         std::vector<Point> direction{Point(1, 0), Point(0, 1), 
             Point(-1, 0), Point(0, -1)};
         std::vector<Point> end_states;
-        std::map<Point, float> end_reward;
         std::vector<Point> obstacles;
         float reward;
         float gamma{0.9};

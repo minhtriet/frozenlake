@@ -1,5 +1,6 @@
 #include<vector>
 #include <iostream>
+#include <iomanip>
 
 namespace util {
 
@@ -16,7 +17,7 @@ namespace util {
         void print(const std::vector<std::vector<T>>& matrix) {
             for (int j=0; j < matrix[0].size(); j++) {
                 for (int i=0; i < matrix.size(); i++) {
-                    std::cout << matrix[i][j] << " ";
+                    std::cout << std::setprecision(5) << matrix[i][j] << " ";
                 }
                 std::cout << "\n";
             }
