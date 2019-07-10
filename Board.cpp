@@ -52,7 +52,7 @@ float Board::move(const Point& current_loc, const Point& direction,
             this->best_value[current_loc.x][current_loc.y];
     }
     if (util::is_in_vector(new_loc, this->end_states)) {
-        return total_reward + prob * this->best_policy[new_loc.x][new_loc.y];
+        return total_reward + prob * this->best_value[new_loc.x][new_loc.y];
     }
     // end of edges cases
     if (this->is_inside(new_loc)) {
@@ -72,7 +72,7 @@ int Board::run() {
             this->visited.insert(this->visited.begin(), p);
             float result;
             for (auto direction : this->direction) {
-                Point new_loc = current_loc + direction;
+                Point new_loc = p + direction;
                 if (this->is_inside(new_loc)) {
                     if (!util::is_in_vector(new_loc, visited) 
                             && (!util::is_in_vector(new_loc, this->obstacles))
