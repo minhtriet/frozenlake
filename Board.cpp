@@ -14,20 +14,18 @@ void Board::init(const Point& start_state) {
 
 bool Board::is_inside(const Point& location) {
     if ((location.x >= 0) && (location.y >= 0) \
-       && (location.x < this->width) && (location.y < this->height))
+            && (location.x < this->width) && (location.y < this->height))
         return true;
-     return false;
+    return false;
 }
 
 float Board::move(const Point& current_loc, const Point& direction) {
     // edge cases
     // push new points to visit schedule
     Point new_loc = current_loc + direction;
-    if (!util::is_in_vector(new_loc, visited) && (this->is_inside(new_loc))
-            && (!util::is_in_vector(new_loc, this->obstacles))) {
-        this->schedule.push(new_loc);
-        this->step[new_loc] = this->step.find(current_loc)->second + 1;
-    }
+    this->schedule.push(new_loc);
+    this->step[new_loc] = this->step.find(current_loc)->second + 1;
+
     // calculate reward
     int timestep = this->step.find(current_loc)->second;
     float total_reward = 0;
@@ -54,7 +52,7 @@ float Board::move(const Point& current_loc, const Point& direction,
             this->best_value[current_loc.x][current_loc.y];
     }
     if (util::is_in_vector(new_loc, this->end_states)) {
-        return total_reward + prob * this->end_reward[new_loc];
+        return total_reward + prob * this->best_policy[new_loc.x][new_loc.y];
     }
     // end of edges cases
     if (this->is_inside(new_loc)) {
@@ -70,16 +68,17 @@ int Board::run() {
     for (int i = 0; i < 5; i++) {
         while (this->schedule.size() > 0) {
             Point p = schedule.front();
-            if ((util::is_in_vector(p, this->obstacles)) || 
-                    (util::is_in_vector(p, visited))) {
-                this->schedule.pop();
-                continue;
-            }
-            if (util::is_in_vector(p, this->end_states)) {
-                this->best_value[p.x][p.y] = end_reward[p];
-            } else {
-                float result;
-                for (auto direction : this->direction) {
+            this->schedule.pop();
+            this->visited.insert(this->visited.begin(), p);
+            float result;
+            for (auto direction : this->direction) {
+                Point new_loc = current_loc + direction;
+                if (this->is_inside(new_loc)) {
+                    if (!util::is_in_vector(new_loc, visited) 
+                            && (!util::is_in_vector(new_loc, this->obstacles))
+                            && (!util::is_in_vector(new_loc, this->end_states))) {
+                        this->schedule.push(new_loc);
+                    }
                     result = this->move(p, direction);
                     if (this->best_value[p.x][p.y] < result) {
                         this->best_value[p.x][p.y] = result;
@@ -87,8 +86,6 @@ int Board::run() {
                     }
                 }
             }
-            this->visited.insert(this->visited.begin(), p);
-            this->schedule.pop();
         }
         util::print(this->best_value);
         util::print(this->best_policy);
