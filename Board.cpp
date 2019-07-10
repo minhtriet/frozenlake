@@ -70,8 +70,9 @@ int Board::run() {
                     if (!util::is_in_vector(new_loc, visited) 
                             && (!util::is_in_vector(new_loc, obstacles))
                             && (!util::is_in_vector(new_loc, end_states))) {
-                                schedule.push(new_loc);
-                                step[new_loc] = step.find(p)->second + 1;
+                        schedule.push(new_loc);
+                        int new_step = step.find(p)->second + 1;
+                        this->step.insert(std::pair<Point, int>(new_loc, new_step));
                     }
                     result = move(p, direction);
                     if (best_value[p.x][p.y] < result) {
