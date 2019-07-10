@@ -3,8 +3,8 @@
 #include <algorithm>
 #include <cassert>
 #include <cmath>
-#include "util.cpp"
 #include "Board.h"
+#include "util.cpp"
 
 
 void Board::init(const Point& start_state) {
