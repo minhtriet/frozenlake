@@ -22,14 +22,14 @@ namespace util {
                 std::cout << "\n";
             }
         }
+}
 
-    Point operator+(const Point& p0, const Point& p1) {
-        return Point(p1.x + p0.x, p1.y + p0.y);
-    }
-    bool operator==(const Point& p0, const Point& p1) {
-        return (p1.x == p0.x) && (p1.y == p0.y);
-    }
-    bool operator<(const Point& p0, const Point& p1) {
-        return (p1.x < p0.x) || (p1.y < p0.y);
-    }
+Point operator+(const Point& p0, const Point& p1) {
+    return Point(p1.x + p0.x, p1.y + p0.y);
+}
+bool operator==(const Point& p0, const Point& p1) {
+    return (p1.x == p0.x) && (p1.y == p0.y);
+}
+bool operator<(const Point& p0, const Point& p1) {
+    return (p1.x < p0.x) || (p1.y < p0.y);
 }

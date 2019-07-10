@@ -3,6 +3,7 @@
 #include "Point.cpp"
 #include "util.cpp"
 
+
 int main() {
     std::queue<Point> schedule;
 
