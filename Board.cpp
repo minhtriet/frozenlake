@@ -20,13 +20,6 @@ bool Board::is_inside(const Point& location) {
 }
 
 float Board::move(const Point& current_loc, const Point& direction) {
-    // edge cases
-    // push new points to visit schedule
-    Point new_loc = current_loc + direction;
-    this->schedule.push(new_loc);
-    this->step[new_loc] = this->step.find(current_loc)->second + 1;
-
-    // calculate reward
     int timestep = this->step.find(current_loc)->second;
     float total_reward = 0;
     if (direction.x == 0) {
@@ -49,10 +42,10 @@ float Board::move(const Point& current_loc, const Point& direction,
     // edge cases
     if (util::is_in_vector(new_loc, this->obstacles)) {
         return total_reward + prob * std::pow(this->gamma, timestep) * 
-            this->best_value[current_loc.x][current_loc.y];
+            best_value[current_loc.x][current_loc.y];
     }
     if (util::is_in_vector(new_loc, this->end_states)) {
-        return total_reward + prob * this->best_value[new_loc.x][new_loc.y];
+        return total_reward + prob * best_value[new_loc.x][new_loc.y];
     }
     // end of edges cases
     if (this->is_inside(new_loc)) {
@@ -69,26 +62,27 @@ int Board::run() {
         while (this->schedule.size() > 0) {
             Point p = schedule.front();
             this->schedule.pop();
-            this->visited.insert(this->visited.begin(), p);
+            this->visited.insert(visited.begin(), p);
             float result;
-            for (auto direction : this->direction) {
+            for (auto direction : direction) {
                 Point new_loc = p + direction;
                 if (this->is_inside(new_loc)) {
                     if (!util::is_in_vector(new_loc, visited) 
-                            && (!util::is_in_vector(new_loc, this->obstacles))
-                            && (!util::is_in_vector(new_loc, this->end_states))) {
-                        this->schedule.push(new_loc);
+                            && (!util::is_in_vector(new_loc, obstacles))
+                            && (!util::is_in_vector(new_loc, end_states))) {
+                                schedule.push(new_loc);
+                                step[new_loc] = step.find(p)->second + 1;
                     }
-                    result = this->move(p, direction);
-                    if (this->best_value[p.x][p.y] < result) {
-                        this->best_value[p.x][p.y] = result;
-                        this->best_policy[p.x][p.y] = direction;
+                    result = move(p, direction);
+                    if (best_value[p.x][p.y] < result) {
+                        best_value[p.x][p.y] = result;
+                        best_policy[p.x][p.y] = direction;
                     }
                 }
             }
         }
-        util::print(this->best_value);
-        util::print(this->best_policy);
+        util::print(best_value);
+        util::print(best_policy);
     }
     return 0;
 }
