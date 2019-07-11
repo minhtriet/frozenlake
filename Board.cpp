@@ -21,7 +21,7 @@ bool Board::is_inside(const Point& location) {
 
 float Board::move(const Point& current_loc, const Point& direction) {
     int timestep = this->step.find(current_loc)->second;
-    float total_reward = 0;
+    float total_reward = this->reward;
     if (direction.x == 0) {
         total_reward += move(current_loc, Point(-1, 0), timestep, this->probs[1]);
         total_reward += move(current_loc, Point(1, 0), timestep, this->probs[2]);
@@ -38,7 +38,6 @@ float Board::move(const Point& current_loc, const Point& direction,
         int timestep, float prob) {
     float total_reward = 0;
     Point new_loc = current_loc + direction;
-    total_reward = this->reward;
     // edge cases
     if (util::is_in_vector(new_loc, this->obstacles)) {
         return total_reward + prob * std::pow(this->gamma, timestep) * 
