@@ -21,38 +21,34 @@ bool Board::is_inside(const Point& location) {
 
 float Board::move(const Point& current_loc, const Point& direction) {
     int timestep = this->step.find(current_loc)->second;
-    float total_reward = this->reward;
+    float total_reward = std::pow(this->gamma, timestep) * this->reward;
     if (direction.x == 0) {
-        total_reward += move(current_loc, Point(-1, 0), timestep, this->probs[1]);
-        total_reward += move(current_loc, Point(1, 0), timestep, this->probs[2]);
+        total_reward += move(current_loc, Point(-1, 0), this->probs[1]);
+        total_reward += move(current_loc, Point(1, 0), this->probs[2]);
     }
     if (direction.y == 0) {
-        total_reward += move(current_loc, Point(0, -1), timestep, this->probs[1]);
-        total_reward += move(current_loc, Point(0, 1), timestep, this->probs[2]);
+        total_reward += move(current_loc, Point(0, -1), this->probs[1]);
+        total_reward += move(current_loc, Point(0, 1), this->probs[2]);
     }
-    total_reward += Board::move(current_loc, direction, timestep, this->probs[0]);
+    total_reward += Board::move(current_loc, direction, this->probs[0]);
     return total_reward;
 }
 
 float Board::move(const Point& current_loc, const Point& direction, 
-        int timestep, float prob) {
-    float total_reward = 0;
+        float prob) {
     Point new_loc = current_loc + direction;
     // edge cases
     if (util::is_in_vector(new_loc, this->obstacles)) {
-        return total_reward + prob * std::pow(this->gamma, timestep) * 
-            best_value[current_loc.x][current_loc.y];
+        return prob * best_value[current_loc.x][current_loc.y];
     }
     if (util::is_in_vector(new_loc, this->end_states)) {
-        return total_reward + prob * best_value[new_loc.x][new_loc.y];
+        return prob * best_value[new_loc.x][new_loc.y];
     }
     // end of edges cases
     if (this->is_inside(new_loc)) {
-        return total_reward + prob * std::pow(this->gamma, timestep) * 
-            this->best_value[new_loc.x][new_loc.y];
+        return prob * this->best_value[new_loc.x][new_loc.y];
     } else {
-        return total_reward + prob * std::pow(this->gamma, timestep) * 
-            this->best_value[current_loc.x][current_loc.y];
+        return prob * this->best_value[current_loc.x][current_loc.y];
     }
 }
 

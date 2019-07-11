@@ -21,8 +21,7 @@ class Board {
         float reward;
         float gamma{0.9};
         float move(const Point& current_loc, const Point& direction);
-        float move(const Point& current_loc, const Point& direction, 
-                int timestep, float prob);
+        float move(const Point& current_loc, const Point& direction, float prob);
         const std::vector<float> probs{0.8, 0.1, 0.1};
         void init(const Point& start_state);
         int run();
