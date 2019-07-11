@@ -74,11 +74,11 @@ int Board::run() {
                         int new_step = step.find(p)->second + 1;
                         this->step.insert(std::pair<Point, int>(new_loc, new_step));
                     }
-                    result = move(p, direction);
-                    if (best_value[p.x][p.y] < result) {
-                        best_value[p.x][p.y] = result;
-                        best_policy[p.x][p.y] = direction;
-                    }
+                }
+                result = move(p, direction);
+                if (best_value[p.x][p.y] < result) {
+                    best_value[p.x][p.y] = result;
+                    best_policy[p.x][p.y] = direction;
                 }
             }
         }

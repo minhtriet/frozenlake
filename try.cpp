@@ -4,7 +4,7 @@
 #include "Board.cpp"
 
 
-void read_special_states(std::fstream& fp, std::vector<Point>& states) {
+void read_special_states(std::fstream& fp, std::vector<Point>& states, Board& board) {
     int n_states;
     int temp_x, temp_y;
     fp >> n_states;
@@ -13,6 +13,8 @@ void read_special_states(std::fstream& fp, std::vector<Point>& states) {
         fp >> temp_x >> temp_y;
         state.x = temp_x;
         state.y = temp_y;
+        board.best_value[temp_x][temp_y] = -100;
+        board.best_policy[temp_x][temp_y] = Point(0,0);
     }
 }
 
@@ -26,15 +28,15 @@ void init_board(Point& start_state, Board& board) {
 
     fp >> start_state.x >> start_state.y;
     board.init(start_state); 
-    board.best_value = std::vector(n_col, 
-            std::vector<float>(n_row, std::numeric_limits<float>::lowest()));
-    board.best_policy = std::vector(n_col, std::vector<Point>(n_row, Point(0,0)));
-    read_special_states(fp, board.end_states);
-    read_special_states(fp, board.obstacles);
-    for (int i = 0; i < board.end_states.size(); i++) {
-        fp >> board.best_value[board.end_states[i].x][board.end_states[i].y];
-    }
     fp >> board.reward;
+    board.best_value = std::vector(n_col, std::vector<float>(n_row, board.reward));
+    // init to a random value to discourage staying in the same place
+    board.best_policy = std::vector(n_col, std::vector<Point>(n_row, Point(1,0)));
+    read_special_states(fp, board.end_states, board);
+    read_special_states(fp, board.obstacles, board);
+    for (auto i : board.end_states) {
+        fp >> board.best_value[i.x][i.y];
+    }
 }
 
 
