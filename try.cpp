@@ -30,7 +30,7 @@ void init_board(Board& board) {
     fp >> board.reward;
     board.best_value = std::vector(n_col, std::vector<float>(n_row, board.reward));
     // init to a random value to discourage staying in the same place
-    board.best_policy = std::vector(n_col, std::vector<Point>(n_row, Point(1,0)));
+    board.best_policy = std::vector(n_col, std::vector<Point>(n_row, Point(0,1)));
     read_special_states(fp, board.end_states, board);
     read_special_states(fp, board.obstacles, board);
     for (auto i : board.end_states) {

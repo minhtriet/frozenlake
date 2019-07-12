@@ -7,7 +7,6 @@ class Board {
     private:
         bool is_inside(const Point& location);
         std::queue<Point> schedule;
-        std::map<Point, int> step;
     public:
         std::vector<std::vector<float>> best_value;
         std::vector<std::vector<Point>> best_policy;
