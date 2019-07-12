@@ -7,11 +7,6 @@
 #include "util.cpp"
 
 
-void Board::init(const Point& start_state) {
-    this->schedule.push(start_state);
-    this->step.insert(std::pair<Point, int>(start_state, 0));
-}
-
 bool Board::is_inside(const Point& location) {
     if ((location.x >= 0) && (location.y >= 0) \
             && (location.x < this->width) && (location.y < this->height))
@@ -53,11 +48,14 @@ float Board::move(const Point& current_loc, const Point& direction,
 }
 
 int Board::run() {
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 40; i++) {
+        this->schedule.push(start_state);
+        this->step.insert(std::pair<Point, int>(start_state, 0));
+        std::vector<Point> visited;
         while (this->schedule.size() > 0) {
             Point p = schedule.front();
             this->schedule.pop();
-            this->visited.insert(visited.begin(), p);
+            visited.insert(visited.begin(), p);
             float result;
             for (auto direction : direction) {
                 Point new_loc = p + direction;

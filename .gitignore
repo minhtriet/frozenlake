@@ -4,3 +4,4 @@ version
 *.swp
 *.ipynb
 .ipynb_checkpoints/**
+concerns

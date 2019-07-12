@@ -18,7 +18,7 @@ void read_special_states(std::fstream& fp, std::vector<Point>& states, Board& bo
     }
 }
 
-void init_board(Point& start_state, Board& board) {
+void init_board(Board& board) {
     std::fstream fp("input.txt");
 
     int n_row, n_col;
@@ -26,8 +26,7 @@ void init_board(Point& start_state, Board& board) {
     board.height = n_row;
     board.width = n_col;
 
-    fp >> start_state.x >> start_state.y;
-    board.init(start_state); 
+    fp >> board.start_state.x >> board.start_state.y;
     fp >> board.reward;
     board.best_value = std::vector(n_col, std::vector<float>(n_row, board.reward));
     // init to a random value to discourage staying in the same place
@@ -41,9 +40,8 @@ void init_board(Point& start_state, Board& board) {
 
 
 int main() {
-    Point start_state;
     Board board;
-    init_board(start_state, board);
+    init_board(board);
     board.run();
     return 0;
 }

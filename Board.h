@@ -7,7 +7,6 @@ class Board {
     private:
         bool is_inside(const Point& location);
         std::queue<Point> schedule;
-        std::vector<Point> visited;
         std::map<Point, int> step;
     public:
         std::vector<std::vector<float>> best_value;
@@ -17,6 +16,7 @@ class Board {
         std::vector<Point> direction{Point(1, 0), Point(0, 1), 
             Point(-1, 0), Point(0, -1)};
         std::vector<Point> end_states;
+        Point start_state;
         std::vector<Point> obstacles;
         float reward;
         float gamma{0.9};

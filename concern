@@ -1,0 +1,5 @@
+i think that the code is a bit too much, and am greatly appreciated if a kind person out there can do a full review, however if for any reason it is not reasonable, here are some of the most pressing concerns
+for (int i = 0; i < 5; i++) {
+    this->schedule.push(start_state);
+    this->step.insert(std::pair<Point, int>(start_state, 0));
+    std::vector<Point> visited;
