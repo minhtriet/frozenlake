@@ -24,9 +24,14 @@ float Board::move(const Point& current_loc, const Point& direction) {
         total_reward += move(current_loc, Point(0, -1), this->probs[1]);
         total_reward += move(current_loc, Point(0, 1), this->probs[2]);
     }
-    total_reward += Board::move(current_loc, direction, this->probs[0]);
-    total_reward *= gamma;
-    total_reward += this->reward;
+    if (!util::is_in_vector(current_loc + direction, this->end_states)) {
+        total_reward += Board::move(current_loc, direction, this->probs[0]);
+        total_reward *= gamma;
+        total_reward += this->reward;
+    } else {
+        total_reward *= gamma;
+        total_reward += Board::move(current_loc, direction, this->probs[0]);
+    }
     return total_reward;
 }
 

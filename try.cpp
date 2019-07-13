@@ -18,8 +18,8 @@ void read_special_states(std::fstream& fp, std::vector<Point>& states, Board& bo
     }
 }
 
-void init_board(Board& board) {
-    std::fstream fp("input.txt");
+void init_board(Board& board, char *filename) {
+    std::fstream fp(filename);
 
     int n_row, n_col;
     fp >> n_row >> n_col;
@@ -39,9 +39,9 @@ void init_board(Board& board) {
 }
 
 
-int main() {
+int main(int argc, char *argv[]) {
     Board board;
-    init_board(board);
+    init_board(board, argv[1]);
     board.run();
     return 0;
 }
