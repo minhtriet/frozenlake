@@ -21,14 +21,14 @@ namespace util {
             for (int j=0; j < matrix[0].size(); j++) {
                 for (int i=0; i < matrix.size(); i++) {
                     if ((std::is_floating_point<T>::value) &&
-                            (matrix[i][j] == std::numeric_limits<float>::lowest())) {
+                            (matrix[i][j] == std::numeric_limits<T>::lowest())) {
                         std::cout << "✗ ";
                         continue;
                     }
                     std::cout << matrix[i][j] << " ";
                 }
+                std::cout << "\n";
             }
-            std::cout << "\n";
         }
 }
 
