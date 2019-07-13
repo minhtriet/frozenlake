@@ -45,7 +45,7 @@ float Board::move(const Point& current_loc, const Point& direction,
 }
 
 int Board::run() {
-    for (int i = 0; i < 40; i++) {
+    for (int i = 0; i < 10; i++) {
         this->schedule.push(start_state);
         std::vector<Point> visited;
         while (this->schedule.size() > 0) {
@@ -69,8 +69,8 @@ int Board::run() {
                 }
             }
         }
-        util::print(best_value);
-        util::print(best_policy);
+        util::print<float>(best_value);
+        util::print<Point>(best_policy);
     }
     return 0;
 }
