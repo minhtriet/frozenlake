@@ -57,7 +57,7 @@ int Board::run() {
             Point p = schedule.front();
             this->schedule.pop();
             visited.insert(visited.begin(), p);
-            float result, best_result = std::numeric_limits<float>::min()  ;
+            float result, best_result = std::numeric_limits<float>::lowest();
             Point best_direction;
             for (auto direction : direction) {
                 Point new_loc = p + direction;
