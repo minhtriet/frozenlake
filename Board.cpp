@@ -68,7 +68,10 @@ int Board::run() {
                     }
                 }
                 result = move(p, direction);
-                if (best_value[p.x][p.y] < result) {
+                if (!updated[p.x][p.y]) {
+                    best_value[p.x][p.y] = result;
+                    updated[p.x][p.y] = true;
+                } else if (best_value[p.x][p.y] < result) {
                     best_value[p.x][p.y] = result;
                     best_policy[p.x][p.y] = direction;
                 }
