@@ -57,7 +57,8 @@ int Board::run() {
             Point p = schedule.front();
             this->schedule.pop();
             visited.insert(visited.begin(), p);
-            float result;
+            float result, best_result = std::numeric_limits<float>::min()  ;
+            Point best_direction;
             for (auto direction : direction) {
                 Point new_loc = p + direction;
                 if (this->is_inside(new_loc)) {
@@ -68,14 +69,13 @@ int Board::run() {
                     }
                 }
                 result = move(p, direction);
-                if (!updated[p.x][p.y]) {
-                    best_value[p.x][p.y] = result;
-                    updated[p.x][p.y] = true;
-                } else if (best_value[p.x][p.y] < result) {
-                    best_value[p.x][p.y] = result;
-                    best_policy[p.x][p.y] = direction;
+                if (result > best_result) {
+                    best_result = result;
+                    best_direction = direction;
                 }
             }
+            best_value[p.x][p.y] = best_result;
+            best_policy[p.x][p.y] = best_direction;
         }
         util::print<float>(best_value);
         util::print<Point>(best_policy);

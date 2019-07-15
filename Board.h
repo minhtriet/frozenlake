@@ -9,7 +9,6 @@ class Board {
         std::queue<Point> schedule;
     public:
         std::vector<std::vector<float>> best_value;
-        std::vector<std::vector<bool>> updated;
         std::vector<std::vector<Point>> best_policy;
         int width;
         int height;

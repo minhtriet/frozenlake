@@ -27,9 +27,7 @@ void init_board(Board& board, char *filename) {
 
     fp >> board.start_state.x >> board.start_state.y;
     fp >> board.reward;
-    ;
-    board.best_value = std::vector(n_col, std::vector<float>(n_row));
-    board.updated = std::vector(n_col, std::vector<bool>(n_row, false));
+    board.best_value = std::vector(n_col, std::vector<float>(n_row, board.reward));
     // init to a random value to discourage staying in the same place
     board.best_policy = std::vector(n_col, std::vector<Point>(n_row, Point(0,1)));
     read_special_states(fp, board.end_states, board);
