@@ -14,6 +14,7 @@ void read_special_states(std::fstream& fp, std::vector<Point>& states, Board& bo
         state.x = temp_x;
         state.y = temp_y;
         board.best_policy[temp_x][temp_y] = Point(0,0);
+        board.best_value[temp_x][temp_y] = std::numeric_limits<float>::lowest();
     }
 }
 
