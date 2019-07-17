@@ -6,3 +6,5 @@ If you look at the result, abnormally
 Index matters
 
 Edge case matters
+
+Experiments with different starting point, to see if policy changes
