@@ -5,3 +5,4 @@ version
 *.ipynb
 .ipynb_checkpoints/**
 concerns
+/Default/

@@ -1,8 +1,6 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
-#include <cassert>
-#include <cmath>
 #include "Board.h"
 #include "util.cpp"
 
