@@ -10,7 +10,7 @@ We use BFS with Bellman equation for value update
 
 If you look at the result, abnormally
 
-Index matters
+Index matters, make your own convention. If you says dimension of an rectangle is iwdth*height, and your index follows the convevntion of x axe before y axe, there is going to be a problem
 
 Edge case matters
 
