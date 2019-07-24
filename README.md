@@ -8,17 +8,17 @@
 Implementation of gridworld problem, Artificial Intelligence: A Modern Approach v3, Chapter 17, Exercise 11.
 
 Reiforcement realing
-i
+
 
 ## Motivation
 The motivation of this is two fold:
 
 
-Suttons’s bible In RL, there are two cases, one that states and action space can be effectively stored on a table. Another case is that the states 
+1. Suttons’s bible In RL, there are two cases, one that states and action space can be effectively stored on a table. Another case is that the states 
 
 While reality is the latter case, I find the former case good for education purpose. Not the magical blackbox of Neural Network, mostly non bullshit number.
 
-After having my take of some data company and Internet blogs, I realize what is done anyway is throwing in data and a generic neural network (NN), I feel like it is  more beneficial to readers to either imp[lement a paper (and do debugging techniques like gradient check before tuning hyperparameters) 
+2. After having my take of some data company and Internet blogs, I realize what is done anyway is throwing in data and a generic neural network (NN), I feel like it is  more beneficial to readers to either imp[lement a paper (and do debugging techniques like gradient check before tuning hyperparameters) 
 or
 2. Do some classical tabular RL method
 
