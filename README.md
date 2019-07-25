@@ -55,3 +55,17 @@ However, if run, result would be
 
 
 Book of Sutton called this in 2.6. Overall, it is highly depending on your initial value. As @Programmer says, hours of minutes of reading the manual
+
+
+## Initialize condition
+If one looks at the update condition
+
+
+He might be tempted to write this
+
+if (result > best_result) {
+ 71                     best_result = result;
+ 72                     best_direction = direction;
+ 73                 }
+
+But in reality, code is a problem
