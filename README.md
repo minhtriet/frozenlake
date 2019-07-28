@@ -34,31 +34,25 @@ Know about basic concept of state, … in RL, I summarise them at the appendix
 The premise of RL is around Markov decision process, 
 
 We use BFS with Bellman equation for value update
-
-
-
-Index matters, make your own convention. It is common to see matrix size comes in tuple `(width, height)`. This is also true with common implementations of matrix (OpenCV [https://stackoverflow.com/a/39000623]). When printing a 2D array, code would look like
+### Index matters
+It is common to see matrix size comes in tuple `(width, height)`. This is also true with common implementations of matrix (OpenCV [https://stackoverflow.com/a/39000623]). When printing a 2D array, code would look like
 ```
 for i in range(height):
     for j in range(width):
         print(matrix[i][j])
 ```
-However, common math convetion requies `x` coordinate (corresponds to `width`) comes before `y`. If 
+However, common math convetion requies `x` coordinate (corresponds to `width`) comes before `y`. If `width != height`, in a language like C++, instead of throwing an exception, a random number would be returned, which would lead to unpredictable result.
+
+Solving this may requires altering one's convention
 ```
 for i in range(width):
     for j in range(height):
-        states[i][j] =
+        print(states[j][i])  # note the change of index here
 ```
 
+It would be sensible to make one's own convention and to follow it to make it a habit.
 
-Edge case matters
-
-
-Why the over specific title.
-
-
-
-OpenAI frozen lake challenge
+### Non-obvious edge cases
 
 If > 
 
