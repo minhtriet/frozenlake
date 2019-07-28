@@ -17,36 +17,40 @@ Reiforcement realing
 ## Motivation
 The motivation of this is two fold:
 
+1. According to Suttons’s book, there are two classes of RL, one that states and action space can be effectively stored on a table. Another case is that the states 
 
-1. Suttons’s bible In RL, there are two cases, one that states and action space can be effectively stored on a table. Another case is that the states 
+While the latter case generates more hype, I find the former case good for education purpose. Not the magical blackbox of Neural Network, mostly non bullshit number.
 
-While reality is the latter case, I find the former case good for education purpose. Not the magical blackbox of Neural Network, mostly non bullshit number.
-
-2. After having my take of some data company and Internet blogs, I realize what is done anyway is throwing in data and a generic neural network (NN), I feel like it is  more beneficial to readers to either imp[lement a paper (and do debugging techniques like gradient check before tuning hyperparameters) 
+2. After having my take of some data company and Internet blogs, I realize what is done anyway is throwing in data and a generic neural network (NN), I feel like it is  more beneficial to readers to either implement a paper (and do debugging techniques like gradient check before tuning hyperparameters) 
 or
 2. Do some classical tabular RL method
 
+
+## Prerequiste
+Know about basic concept of state, … in RL, I summarise them at the appendix
+
+
+## Technical details
 The premise of RL is around Markov decision process, 
 
 We use BFS with Bellman equation for value update
 
 
 
-Index matters, make your own convention. If you says dimension of an rectangle is iwdth*height, and your index follows the convevntion of x axe before y axe, there is going to be a problem, instead of writing
+Index matters, make your own convention. Assume your dimension of an rectangle is `width * height`, and your index follows the convevntion of x axe before y axe
 
 ```
 for i in range(width):
     for j in range(height):
-        states
+        states[i][j] =
 ```
+
 
 Edge case matters
 
-Experiments with different starting point, to see if policy changes
 
 Why the over specific title.
 
-Prerequiste: Know about basic concept of state, … in RL, I summarise them at the appendix
 
 Common trap to falls to
 
