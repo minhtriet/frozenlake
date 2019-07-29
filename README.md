@@ -54,7 +54,9 @@ It would be sensible to make one's own convention and to follow it to make it a 
 
 ### Non-obvious edge cases
 
-If > 
+It is common to use an initial value for value and then updated it later. 
+
+No direction, negative value
 
 
 However, if run, result would be
