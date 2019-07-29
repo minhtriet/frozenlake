@@ -57,7 +57,12 @@ It would be sensible to make one's own convention and to follow it to make it a 
 ### Non-obvious edge cases
 It is common to use an initial value for value and then updated it when a better policy is found. I would use a simple tuple `(x, y)` to indicate the policy
 
-
+| Tuple   | Direction |
+|---------|-----------|
+| `(-1, 0)` | ←         |
+| `(1, 0)`  | →         |
+| `(0, 1)`  | ↑         |
+| `(0, 1)`  | ↓         |
 
 A naive initialization looks like
 
