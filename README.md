@@ -35,13 +35,15 @@ The premise of RL is around Markov decision process,
 
 We use BFS with Bellman equation for value update
 ### Index matters
-It is common to see matrix size comes in tuple `(width, height)`. This is also true with common implementations of matrix (OpenCV [https://stackoverflow.com/a/39000623]). When printing a 2D array, code would look like
+ When accessing a 2D array, the order of index often looks like
 ```
-for i in range(height):
-    for j in range(width):
+for i in range(rows):
+    for j in range(columns):
         print(matrix[i][j])
 ```
-However, common math convetion requies `x` coordinate (corresponds to `width`) comes before `y`. If `width != height`, in a language like C++, instead of throwing an exception, a random number would be returned, which would lead to unpredictable result.
+However, common math convetion requies `x` coordinate (corresponds to `width`) comes before `y`, which conflicts with the `(height, width)` convention above. There also those kind of inconsistent, even in mature library (Compare https://docs.opencv.org/4.0.0/d3/d63/classcv_1_1Mat.html#a2ec3402f7d165ca34c7fd6e8498a62ca with https://docs.opencv.org/4.0.0/d3/d63/classcv_1_1Mat.html#a75a97b1e4e55f380c172af58048a7cde). 
+
+If `width != height`, in a language like C++, instead of throwing an exception, a random number would be returned, which would lead to unpredictable result.
 
 Solving this may requires altering one's convention
 ```
@@ -53,8 +55,17 @@ for i in range(width):
 It would be sensible to make one's own convention and to follow it to make it a habit.
 
 ### Non-obvious edge cases
+It is common to use an initial value for value and then updated it when a better policy is found. I would use a simple tuple `(x, y)` to indicate the policy
 
-It is common to use an initial value for value and then updated it later. 
+
+
+A naive initialization looks like
+
+```
+for i in range(width):
+    for j in range(height):
+        policy = (0, 0)
+```
 
 No direction, negative value
 
