@@ -58,7 +58,7 @@ It is common to use an initial value for value and then updated it later.
 
 No direction, negative value
 
-
+Now states would never get updated because the state would be 0, better than moving in any direction 
 However, if run, result would be
 
 
