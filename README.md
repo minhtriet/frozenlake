@@ -22,20 +22,22 @@ Without further ado, I run to the problem and its two evasive pitfalls.
 
 The problem: Given this grid. An agent (or robot) can move to 4 direction, N, E, W, S.
 
-```
- |----|----|----|----|
-3| 🤖 |    |    | (+1) |
- |----|----|----|----|
-2|    | x  |    | (-1) |
- |----|----|----|----|
-1|    |    |    |    |
- |----|----|----|----|
-   1    2    3    4 
-```
+|   |   |   | (1)  |
+|---|---|---|------|
+|   | X |   | (-1) |
+| 🤖 |   |   |      |
+   
 
-Each time an agent (🤖) moves to a cell, it would receive a reward from that cell. The +1 and 1 is the end state, once the agent move to those cell, the game is over. x is an obstacle, which bounces the agent back when being hit.
+Each time an agent (🤖) moves to a cell, it would receive a reward from that cell. The (+1) and (-1) is the end state, once the agent move to those cell, the game is over. `X` is an obstacle, which bounces the agent back when being hit.
 
-The agent, however, has the probability to side step (p=0.1).
+The agent, however, has the probability to side step (p=0.1)
+```
+Sidestep (p=0.1)
+↑
+xx ----> Intended direction (p=0.8)
+↓
+Sidestep (p=0.1)
+```
 
 ## Pitfalls
 ### Index matters
