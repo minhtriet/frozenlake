@@ -57,10 +57,11 @@ It would be sensible to make one's own convention and to follow it to make it a 
 ### Initialization
 Weight initialization gets a decent amount of attention (https://papers.nips.cc/paper/7338-how-to-start-training-the-effect-of-initialization-and-architecture.pdf, https://arxiv.org/pdf/1504.00941.pdf, https://twitter.com/ylecun/status/854136432327352320). Most profound effect is that setting wrong weight can lead to very slow or no learning at all. Luckily, we have a chance to experiment it in shallow learning too. 
 
-```
+
 The initial Bellman equation looks like:
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;P(s'|s,&space;a)U(s')" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;P(s'|s,&space;a)U(s')" title="U(s) = R(s) + \gamma max_{a \in A(s)} P(s'|s, a)U(s')" /></a>
+
 ```
 for i in range(width):
     for j in range(height):
@@ -70,11 +71,19 @@ for i in range(width):
             move_to_best_direction
 ```
 
-
-
 Now with a board like this and a reward of 2, the result would never been update, since it is better to stay still than moving anywhere.
 
-Now states would never get updated because the state would be 0, better than moving in any direction 
+|   |   | ✥ | (1)  |
+|---|---|---|------|
+|   |   | ✥ | (-1) |
+
+In this world, the best policy should looks like the following table
+
+|   |   | ← | (1)  |
+|---|---|---|------|
+|   |   | ← | (-1) |
+Intuitively, the world is so good no one ones to leave
+
 However, if run, result should be
 
 
