@@ -61,15 +61,23 @@ It is common to use an initial value for value and then updated it when a better
 |---------|-----------|
 | `(-1, 0)` | ←         |
 | `(1, 0)`  | →         |
-| `(0, 1)`  | ↑         |
+| `(0, -1)`  | ↑         |
 | `(0, 1)`  | ↓         |
 
-A naive initialization looks like
+An initial initialization looks like
 
-```
+```python
+# init
 for i in range(width):
     for j in range(height):
-        policy = (0, 0)
+        policy[i][j] = (0, 0)
+        value[i][j] = -infinte
+
+for i in range(width):
+    for j in range(height):
+        # move logic
+        if best_result > value[i][j]:
+            move_to_best_direction
 ```
 
 No direction, negative value
