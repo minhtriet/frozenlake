@@ -44,6 +44,15 @@ Find the optimal policy for the agent. For example, with a reward of -0.04 per c
 ↑  ✗  ↑  ✗
 ↑  ←  ↑  ←
 ```
+## Solution
+We can use the Bellman equation and its extended form:
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;P(s'|s,&space;a)U(s')" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;P(s'|s,&space;a)U(s')" title="U(s) = R(s) + \gamma max_{a \in A(s)} P(s'|s, a)U(s')" /></a>
+
+Note that in this form, (1, 1) is the bottom left corner 
+U(1,1)=−0.04+γ max[ 0.8U(1,2)+0.1U(2,1)+0.1U(1,1),               (Up)
+                    0.9U (1, 1) + 0.1U (1, 2),                   (Down)
+                    0.9U (1, 1) + 0.1U (2, 1),                   (Left)   
+                    0.8U (2, 1) + 0.1U (1, 2) + 0.1U (1, 1) ].   (Right)
 ## Pitfalls
 ### Index matters
  When accessing a 2D array, the order of index often looks like
@@ -69,9 +78,6 @@ It would be sensible to make one's own convention and to follow it to make it a 
 Weight initialization gets a decent amount of attention (https://papers.nips.cc/paper/7338-how-to-start-training-the-effect-of-initialization-and-architecture.pdf, https://arxiv.org/pdf/1504.00941.pdf, https://twitter.com/ylecun/status/854136432327352320). Most profound effect is that setting wrong weight can lead to very slow or no learning at all. Luckily, we have a chance to experiment it in shallow learning too. 
 
 
-The initial Bellman equation looks like:
-
-<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;P(s'|s,&space;a)U(s')" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;P(s'|s,&space;a)U(s')" title="U(s) = R(s) + \gamma max_{a \in A(s)} P(s'|s, a)U(s')" /></a>
 
 ```
 for i in range(width):
