@@ -1,39 +1,24 @@
-## Todo
-Add code of stuffs, before and after
-
-
-## To run
-### Compile
-`./compile.sh`
-### Run with different files
-`./a.out [input.txt | input2.txt | ... ]`
-
 ## About this repo
-Implementation of gridworld problem, Artificial Intelligence: A Modern Approach v3, Chapter 17, Exercise 11.
+Implementation of gridworld problem, Artificial Intelligence: A Modern Approach v3, Chapter 17. This is also similar to (Frozen Lake challenge) [https://gym.openai.com/envs/FrozenLake-v0/], which widely considers the most basic Reinforcement Learning (RL) problem.
 
-Reiforcement realing
-
+The writing does not cover any thing, but things that can be easily overlooked when one implements not just this, but many machine learning papers in total.
 
 ## Motivation
 The motivation of this is two fold:
 
-1. According to Suttons’s book, there are two classes of RL, one that states and action space can be effectively stored on a table. Another case is that the states 
+1. According to Suttons’s book, there are two classes of RL, one that states and action space can be effectively stored on a table. Another case is that the states is innumberable (Number of Go/Dota/Starcraft moves) and need to have some approximation / generalization techniques.
 
 While the latter case generates more hype, I find the former case good for education purpose. Not the magical blackbox of Neural Network, mostly non bullshit number.
 
-2. After having my take of some data company and Internet blogs, I realize what is done anyway is throwing in data and a generic neural network (NN), I feel like it is  more beneficial to readers to either implement a paper (and do debugging techniques like gradient check before tuning hyperparameters) 
-or
-2. Do some classical tabular RL method
+2. After having my take of companies, I realize what is done anyway is throwing in data and a generic neural network (NN), I feel like it would be more beneficial to implement and debug some papers from scratch.
 
 
 ## Prerequiste
-Know about basic concept of state, … in RL, I summarise them at the appendix
+Know about basic concept of state, … in RL, I summarise them at the appendix. In this paper we use BFS with Bellman equation for value update.
 
+Without further ado, I run to the two evasive pitfalls.
 
-## Technical details
-The premise of RL is around Markov decision process, 
-
-We use BFS with Bellman equation for value update
+## Pitfalls
 ### Index matters
  When accessing a 2D array, the order of index often looks like
 ```
@@ -77,60 +62,23 @@ Now with a board like this and a reward of 2, the result would never been update
 |---|---|---|------|
 |   |   | ✥ | (-1) |
 
-In this world, the best policy should looks like the following table
+The correct policy would actually look like  following table
 
 |   |   | ← | (1)  |
 |---|---|---|------|
 |   |   | ← | (-1) |
-Intuitively, the world is so good no one ones to leave
 
-However, if run, result should be
-
-
-Book of Sutton called this in 2.6. Overall, it is highly depending on your initial value. As @Programmer says, hours of minutes of reading the manual
-
-
-## Initialize condition
-If one looks at the update condition
-
-
-He might be tempted to write this
-
-if (result > best_result) {
-    best_result = result;
-    best_direction = direction;
-}
-
-But in reality, code is a problem
-
-
-
-
-
+Intuitively, this world is so good no one wants to leave
 
 ## Appendix
 _S_: States - Collection of snapshot of the enviroment by an agent
 _U(s)_: Util - A value assigned to each state to show how valuable that state is
 _R_: Reawrd - A value that the agent receive when it makes a move
 
-### Recycle bin
 
-
-It is common to use an initial value for value and then updated it when a better policy is found. I would use a simple tuple `(x, y)` to indicate the policy
-
-| Tuple   | Direction |
-|---------|-----------|
-| `(-1, 0)` | ←         |
-| `(1, 0)`  | →         |
-| `(0, -1)`  | ↑         |
-| `(0, 1)`  | ↓         |
-
-An initial code looks like
-
-```python
-# init
-for i in range(width):
-    for j in range(height):
-        policy[i][j] = (0, 0)
-        value[i][j] = reward
+## To run
+### Compile
+`./compile.sh`
+### Run with different files
+`./a.out [input.txt | input2.txt | ... ]`
 
