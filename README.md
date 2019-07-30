@@ -1,5 +1,5 @@
 ## About this repo
-Implementation of gridworld problem, Artificial Intelligence: A Modern Approach v3, Chapter 17. This is also similar to (Frozen Lake challenge)[https://gym.openai.com/envs/FrozenLake-v0/], which widely considers the most basic Reinforcement Learning (RL) problem.
+Implementation of gridworld problem, Artificial Intelligence: A Modern Approach v3, Chapter 17. This is also similar to [Frozen Lake challenge](https://gym.openai.com/envs/FrozenLake-v0/), which widely considers the most basic Reinforcement Learning (RL) problem.
 
 The writing does not cover any thing, but things that can be easily overlooked when one implements not just this, but many machine learning papers in total.
 
