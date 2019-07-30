@@ -1,20 +1,20 @@
 ## About this repo
-Implementation of gridworld problem, Artificial Intelligence: A Modern Approach v3, Chapter 17. This is also similar to [Frozen Lake challenge](https://gym.openai.com/envs/FrozenLake-v0/), which widely considers the most basic Reinforcement Learning (RL) problem.
+Implementation of the grid world problem, Artificial Intelligence: A Modern Approach v3, Chapter 17. This is also similar to the [Frozen Lake challenge](https://gym.openai.com/envs/FrozenLake-v0/), which widely considers the most basic Reinforcement Learning (RL) problem.
 
-The writing does not cover any thing, but things that can be easily overlooked when one implements not just this, but many machine learning papers in total.
+The writing does not cover anything, but things that can be easily overlooked when one implements not just this, but many machine learning papers in total.
 
 ## Motivation
-The motivation of this is two fold:
+The motivation of this is two-fold:
 
-1. According to Suttons’s book, there are two classes of RL, one that states and action space can be effectively stored on a table. Another case is that the states is innumberable (Number of Go/Dota/Starcraft moves) and need to have some approximation / generalization techniques.
+1. According to Suttons’s book, there are two classes of RL, one that states and action space can be effectively stored in a table. Another case is that the number of states is innumerable (Number of Go/Dota/Starcraft moves). Solving this would require some approximation/generalization techniques.
 
-While the latter case generates more hype, I find the former case good for education purpose. Not the magical blackbox of Neural Network, mostly non bullshit number.
+While the latter case generates more hype, I find the former case good for education purpose.
 
 2. After having my take of companies, I realize what is done anyway is throwing in data and a generic neural network (NN), I feel like it would be more beneficial to implement and debug some papers from scratch.
 
 
-## Prerequiste
-Know about basic concept of state, … in RL, I summarise them at the appendix. In this paper we use BFS with Bellman equation for value update.
+## Prerequisites
+Know about the basic concept of state, … in RL, I summarise them in the appendix. In this implementation, we use BFS with the Bellman equation for value updating.
 
 Without further ado, I run to the problem and its two evasive pitfalls.
 
@@ -28,9 +28,9 @@ Given the grid below. An agent (or robot) can move to 4 direction, N, E, W, S.
 | 🤖 |   |   |      |
    
 
-Each time an agent (🤖) moves to a cell, it would receive a reward from that cell. The (1) and (-1) is the end state, once the agent move to those cell, the game is over. `✗` is an obstacle, which bounces the agent back when being hit.
+Each time an agent (🤖) moves to a cell, it would receive a reward from that cell. The (1) and (-1) is the end state, once the agent move to one of those cells, the game is over. `✗` is an obstacle, which bounces the agent back when being hit.
 
-The agent, however, has the probability to side step (p=0.1)
+The agent, however, has the probability to sidestep (p=0.1)
 ```
 Sidestep (p=0.1)
 ↑
@@ -38,7 +38,7 @@ xx ----> Intended direction (p=0.8)
 ↓
 Sidestep (p=0.1)
 ```
-Find the optimal policy for the agent. For example, with a reward of -0.04 per cell, optimal policy is
+Find the optimal policy for the agent. For example, with a reward of -0.04 per cell, the optimal policy is
 ```
 →  →  →  ✗
 ↑  ✗  ↑  ✗
@@ -65,9 +65,9 @@ for i in range(rows):
     for j in range(columns):
         print(matrix[i][j])
 ```
-However, common math convetion requies `x` coordinate (corresponds to `width`) comes before `y`, which conflicts with the `(height, width)` convention above. There also those kind of inconsistent, even in mature library (Compare https://docs.opencv.org/4.0.0/d3/d63/classcv_1_1Mat.html#a2ec3402f7d165ca34c7fd6e8498a62ca with https://docs.opencv.org/4.0.0/d3/d63/classcv_1_1Mat.html#a75a97b1e4e55f380c172af58048a7cde). 
+However,  math convention requires `x` coordinate (corresponds to `width`) comes before `y`, which conflicts with the `(height, width)` convention above. This kind of inconsistent makes it even into mature libraries (Compare https://docs.opencv.org/4.0.0/d3/d63/classcv_1_1Mat.html#a2ec3402f7d165ca34c7fd6e8498a62ca with https://docs.opencv.org/4.0.0/d3/d63/classcv_1_1Mat.html#a75a97b1e4e55f380c172af58048a7cde). 
 
-If `width != height`, in a language like C++, instead of throwing an exception, a random number would be returned, which would lead to unpredictable result.
+If `width != height`, in a language like C++, instead of throwing an exception, a random number would be returned, which would lead to unpredictable results.
 
 Solving this may requires altering one's convention
 ```
@@ -76,10 +76,10 @@ for i in range(width):
         print(states[j][i])  # note the change of index here
 ```
 
-It would be sensible to make one's own convention and to follow it to make it a habit.
+It would be sensible to make one's convention and to follow it to make it a habit.
 
 ### Initialization
-Weight initialization gets a decent amount of attention (https://papers.nips.cc/paper/7338-how-to-start-training-the-effect-of-initialization-and-architecture.pdf, https://arxiv.org/pdf/1504.00941.pdf, https://twitter.com/ylecun/status/854136432327352320). Most profound effect is that setting wrong weight can lead to very slow or no learning at all. Luckily, we have a chance to experiment it in shallow learning too. 
+Weight initialization gets a decent amount of attention (https://papers.nips.cc/paper/7338-how-to-start-training-the-effect-of-initialization-and-architecture.pdf, https://arxiv.org/pdf/1504.00941.pdf, https://twitter.com/ylecun/status/854136432327352320). The most profound effect is that setting the wrong weight can lead to very slow or no learning at all. Luckily, we have a chance to replicate this in shallow learning too. 
 
 ```
 for i in range(width):
@@ -90,13 +90,13 @@ for i in range(width):
             move_to_best_direction
 ```
 
-Now with a board like this and a reward of 2, the result would never been update, since it is better to stay still than moving anywhere.
+Now with a board like this and a reward of 2, the result would never be updated, since it is better to stay still than moving anywhere.
 
 |   |   | ✥ | (1)  |
 |---|---|---|------|
 |   |   | ✥ | (-1) |
 
-The correct policy would actually look like  following table
+The correct policy would look like the following table
 
 |   |   | ← | (1)  |
 |---|---|---|------|
@@ -105,9 +105,9 @@ The correct policy would actually look like  following table
 Intuitively, this world is so good no one wants to leave
 
 ## Appendix
-- _S_: States - Collection of snapshot of the enviroment by an agent
+- _S_: States - Collection of a snapshot of the environment by an agent
 - _U(s)_: Util - A value assigned to each state to show how valuable that state is
-- _R_: Reward - A value that the agent receive when it makes a move
+- _R_: Reward - A value that the agent receives when it makes a move
 
 ## To run
 ### Compile
