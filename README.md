@@ -64,7 +64,7 @@ It is common to use an initial value for value and then updated it when a better
 | `(0, -1)`  | ↑         |
 | `(0, 1)`  | ↓         |
 
-An initial initialization looks like
+An initial code looks like
 
 ```python
 # init
@@ -72,7 +72,10 @@ for i in range(width):
     for j in range(height):
         policy[i][j] = (0, 0)
         value[i][j] = reward
-
+```
+The initial Bellman equation looked like 
+- <img src="https://latex.codecogs.com/png.latex?O_t=U(s) = R(s) + \gamma max_P(s′|s, a)U(s′) . " /> 
+```
 for i in range(width):
     for j in range(height):
         # move logic
