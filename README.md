@@ -74,7 +74,9 @@ for i in range(width):
         value[i][j] = reward
 ```
 The initial Bellman equation looked like 
-- <img src="https://latex.codecogs.com/png.latex?O_t=U(s) = R(s) + \gamma max_P(s′|s, a)U(s′) . " /> 
+
+
+(https://latex.codecogs.com/svg.latex?\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;P(s'|s,&space;a)U(s'))
 ```
 for i in range(width):
     for j in range(height):
@@ -109,3 +111,13 @@ if (result > best_result) {
 }
 
 But in reality, code is a problem
+
+
+
+
+
+
+## Misc
+```
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;P(s'|s,&space;a)U(s')" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;P(s'|s,&space;a)U(s')" title="U(s) = R(s) + \gamma max_{a \in A(s)} P(s'|s, a)U(s')" /></a>
+```
