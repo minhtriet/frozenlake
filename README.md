@@ -45,10 +45,11 @@ Find the optimal policy for the agent. For example, with a reward of -0.04 per c
 ↑  ←  ↑  ←
 ```
 ## Solution
-We can use the Bellman equation and its extended form:
-<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;P(s'|s,&space;a)U(s')" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;P(s'|s,&space;a)U(s')" title="U(s) = R(s) + \gamma max_{a \in A(s)} P(s'|s, a)U(s')" /></a>
+We can use the Bellman equation
 
-Note that in this form, (1, 1) is the bottom left corner
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;\sum_{s'}P(s'|s,&space;a)U(s')" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;\sum_{s'}P(s'|s,&space;a)U(s')" title="U(s) = R(s) + \gamma max_{a \in A(s)} \sum_{s'}P(s'|s, a)U(s')" /></a>
+
+and its extended form: Note that (1, 1) is the bottom left corner
 ```
 U(1,1)=−0.04+γ max[ 0.8U(1,2)+0.1U(2,1)+0.1U(1,1),               (Up)
                     0.9U (1, 1) + 0.1U (1, 2),                   (Down)
