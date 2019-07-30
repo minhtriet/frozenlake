@@ -55,26 +55,8 @@ for i in range(width):
 It would be sensible to make one's own convention and to follow it to make it a habit.
 
 ### Initialization
-Deep learning community 
-- Seed of random
-- Weight initialization
-It is common to use an initial value for value and then updated it when a better policy is found. I would use a simple tuple `(x, y)` to indicate the policy
+Weight initialization gets a decent amount of attention (https://papers.nips.cc/paper/7338-how-to-start-training-the-effect-of-initialization-and-architecture.pdf, https://arxiv.org/pdf/1504.00941.pdf, https://twitter.com/ylecun/status/854136432327352320). Most profound effect is that setting wrong weight can lead to very slow or no learning at all. Luckily, we have a chance to experiment it in shallow learning too. 
 
-| Tuple   | Direction |
-|---------|-----------|
-| `(-1, 0)` | ←         |
-| `(1, 0)`  | →         |
-| `(0, -1)`  | ↑         |
-| `(0, 1)`  | ↓         |
-
-An initial code looks like
-
-```python
-# init
-for i in range(width):
-    for j in range(height):
-        policy[i][j] = (0, 0)
-        value[i][j] = reward
 ```
 The initial Bellman equation looks like:
 
@@ -87,6 +69,8 @@ for i in range(width):
         if best_result > value[i][j]:
             move_to_best_direction
 ```
+
+
 
 Now with a board like this and a reward of 2, the result would never been update, since it is better to stay still than moving anywhere.
 
@@ -120,5 +104,24 @@ _S_: States - Collection of snapshot of the enviroment by an agent
 _U(s)_: Util - A value assigned to each state to show how valuable that state is
 _R_: Reawrd - A value that the agent receive when it makes a move
 
+### Recycle bin
 
+
+It is common to use an initial value for value and then updated it when a better policy is found. I would use a simple tuple `(x, y)` to indicate the policy
+
+| Tuple   | Direction |
+|---------|-----------|
+| `(-1, 0)` | ←         |
+| `(1, 0)`  | →         |
+| `(0, -1)`  | ↑         |
+| `(0, 1)`  | ↓         |
+
+An initial code looks like
+
+```python
+# init
+for i in range(width):
+    for j in range(height):
+        policy[i][j] = (0, 0)
+        value[i][j] = reward
 
