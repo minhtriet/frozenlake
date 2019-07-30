@@ -71,16 +71,21 @@ An initial initialization looks like
 for i in range(width):
     for j in range(height):
         policy[i][j] = (0, 0)
-        value[i][j] = -infinte
+        value[i][j] = reward
 
 for i in range(width):
     for j in range(height):
         # move logic
+        best_direction = null
         if best_result > value[i][j]:
             move_to_best_direction
 ```
 
-No direction, negative value
+Now with a board like this and a reward of 2, the result would never been update, since it is better to stay still than moving anywhere.
+
+
+
+
 
 Now states would never get updated because the state would be 0, better than moving in any direction 
 However, if run, result would be
