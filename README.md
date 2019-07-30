@@ -106,8 +106,7 @@ Intuitively, this world is so good no one wants to leave
 ## Appendix
 - _S_: States - Collection of snapshot of the enviroment by an agent
 - _U(s)_: Util - A value assigned to each state to show how valuable that state is
-- _R_: Reawrd - A value that the agent receive when it makes a move
-
+- _R_: Reward - A value that the agent receive when it makes a move
 
 ## To run
 ### Compile
