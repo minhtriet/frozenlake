@@ -73,12 +73,9 @@ for i in range(width):
         policy[i][j] = (0, 0)
         value[i][j] = reward
 ```
-The initial Bellman equation looked like 
+The initial Bellman equation looks like:
 
-
-(https://latex.codecogs.com/svg.latex?\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;P(s'|s,&space;a)U(s'))
-
-![alt text](https://latex.codecogs.com/svg.latex?\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;P(s'|s,&space;a)U(s'))
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;P(s'|s,&space;a)U(s')" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;P(s'|s,&space;a)U(s')" title="U(s) = R(s) + \gamma max_{a \in A(s)} P(s'|s, a)U(s')" /></a>
 ```
 for i in range(width):
     for j in range(height):
@@ -121,5 +118,4 @@ But in reality, code is a problem
 
 ## Misc
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;P(s'|s,&space;a)U(s')" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;P(s'|s,&space;a)U(s')" title="U(s) = R(s) + \gamma max_{a \in A(s)} P(s'|s, a)U(s')" /></a>
 
