@@ -16,7 +16,26 @@ While the latter case generates more hype, I find the former case good for educa
 ## Prerequiste
 Know about basic concept of state, … in RL, I summarise them at the appendix. In this paper we use BFS with Bellman equation for value update.
 
-Without further ado, I run to the two evasive pitfalls.
+Without further ado, I run to the problem and its two evasive pitfalls.
+
+## The problem
+
+The problem: Given this grid. An agent (or robot) can move to 4 direction, N, E, W, S.
+
+```
+ |----|----|----|----|
+3| 🤖 |    |    | (+1) |
+ |----|----|----|----|
+2|    | x  |    | (-1) |
+ |----|----|----|----|
+1|    |    |    |    |
+ |----|----|----|----|
+   1    2    3    4 
+```
+
+Each time an agent (🤖) moves to a cell, it would receive a reward from that cell. The +1 and 1 is the end state, once the agent move to those cell, the game is over. x is an obstacle, which bounces the agent back when being hit.
+
+The agent, however, has the probability to side step (p=0.1).
 
 ## Pitfalls
 ### Index matters
