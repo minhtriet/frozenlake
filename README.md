@@ -54,7 +54,10 @@ for i in range(width):
 
 It would be sensible to make one's own convention and to follow it to make it a habit.
 
-### Non-obvious edge cases
+### Initialization
+Deep learning community 
+- Seed of random
+- Weight initialization
 It is common to use an initial value for value and then updated it when a better policy is found. I would use a simple tuple `(x, y)` to indicate the policy
 
 | Tuple   | Direction |
@@ -87,12 +90,8 @@ for i in range(width):
 
 Now with a board like this and a reward of 2, the result would never been update, since it is better to stay still than moving anywhere.
 
-
-
-
-
 Now states would never get updated because the state would be 0, better than moving in any direction 
-However, if run, result would be
+However, if run, result should be
 
 
 Book of Sutton called this in 2.6. Overall, it is highly depending on your initial value. As @Programmer says, hours of minutes of reading the manual
@@ -116,6 +115,10 @@ But in reality, code is a problem
 
 
 
-## Misc
+## Appendix
+_S_: States - Collection of snapshot of the enviroment by an agent
+_U(s)_: Util - A value assigned to each state to show how valuable that state is
+_R_: Reawrd - A value that the agent receive when it makes a move
+
 
 
