@@ -1,6 +1,3 @@
-
-Hemingway App makes your writing bold and clear.
-
 ## About this repo
 Implementation of the grid world problem, Artificial Intelligence: A Modern Approach v3, Chapter 17. This is also similar to the [Frozen Lake challenge](https://gym.openai.com/envs/FrozenLake-v0/), which is widely considered a basic Reinforcement Learning (RL) problem.
 
