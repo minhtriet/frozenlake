@@ -65,7 +65,7 @@ for i in range(rows):
     for j in range(columns):
         print(matrix[i][j])
 ```
-However,  math convention requires `x` coordinate (corresponds to `width`) comes before `y`, which conflicts with the `(height, width)` convention above. This kind of inconsistent makes it even into mature libraries (Compare https://docs.opencv.org/4.0.0/d3/d63/classcv_1_1Mat.html#a2ec3402f7d165ca34c7fd6e8498a62ca with https://docs.opencv.org/4.0.0/d3/d63/classcv_1_1Mat.html#a75a97b1e4e55f380c172af58048a7cde). 
+However,  math convention requires `x` coordinate (corresponds to `width`) comes before `y`, which conflicts with the `(height, width)` convention above. This kind of inconsistent creeps into even mature libraries (Compare https://docs.opencv.org/4.0.0/d3/d63/classcv_1_1Mat.html#a2ec3402f7d165ca34c7fd6e8498a62ca with https://docs.opencv.org/4.0.0/d3/d63/classcv_1_1Mat.html#a75a97b1e4e55f380c172af58048a7cde). 
 
 If `width != height`, in a language like C++, instead of throwing an exception, a random number would be returned, which would lead to unpredictable results.
 
