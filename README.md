@@ -1,14 +1,17 @@
-## About this repo
-Implementation of the grid world problem, Artificial Intelligence: A Modern Approach v3, Chapter 17. This is also similar to the [Frozen Lake challenge](https://gym.openai.com/envs/FrozenLake-v0/), which widely considers the most basic Reinforcement Learning (RL) problem.
 
-The writing does not cover anything, but things that can be easily overlooked when one implements not just this, but many machine learning papers in total.
+Hemingway App makes your writing bold and clear.
+
+## About this repo
+Implementation of the grid world problem, Artificial Intelligence: A Modern Approach v3, Chapter 17. This is also similar to the [Frozen Lake challenge](https://gym.openai.com/envs/FrozenLake-v0/), which is widely considered a basic Reinforcement Learning (RL) problem.
+
+The writing cover  things that can be overlooked when one implements not just this algorithm, but also many other papers.
 
 ## Motivation
 The motivation of this is two-fold:
 
-1. According to Suttons’s book, there are two classes of RL, one that states and action space can be effectively stored in a table. Another case is that the number of states is innumerable (Number of Go/Dota/Starcraft moves). Solving this would require some approximation/generalization techniques.
+1. According to Suttons’s book, there are two classes of RL, one that states and action space can be stored in a table. Another case is that the number of states is innumerable (Number of Go/Dota/Starcraft moves). Solving this would require some approximation/generalization techniques.
 
-While the latter case generates more hype, I find the former case good for education purpose.
+While the latter case generates more hype, I find the former case good for education purposes.
 
 2. After having my take of companies, I realize what is done anyway is throwing in data and a generic neural network (NN), I feel like it would be more beneficial to implement and debug some papers from scratch.
 
@@ -90,7 +93,7 @@ for i in range(width):
             move_to_best_direction
 ```
 
-Now with a board like this and a reward of 2, the result would never be updated, since it is better to stay still than moving anywhere.
+With a board like this and a reward of 2, the result would never be updated. It is better to stay still than moving anywhere.
 
 |   |   | ✥ | (1)  |
 |---|---|---|------|
@@ -102,7 +105,7 @@ The correct policy would look like the following table
 |---|---|---|------|
 |   |   | ← | (-1) |
 
-Intuitively, this world is so good no one wants to leave
+This world is so good no one wants to leave
 
 ## Appendix
 - _S_: States - Collection of a snapshot of the environment by an agent
@@ -114,4 +117,3 @@ Intuitively, this world is so good no one wants to leave
 `./compile.sh`
 ### Run with different files
 `./a.out [input.txt | input2.txt | ... ]`
-
