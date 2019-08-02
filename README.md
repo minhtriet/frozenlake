@@ -1,3 +1,11 @@
+Download sample code first
+
+Have you heard about ...
+Quick discussion if needed
+Problem
+Solution
+
+
 # Overlooked details on implementing papers
 And how to prevent them
 
@@ -41,7 +49,7 @@ xx ----> Intended direction (p=0.8)
 ↓
 Sidestep (p=0.1)
 ```
-Find the optimal policy for the agent. For example, with a reward of -0.04 per cell, the optimal policy is
+Task: Find the optimal policy for the agent. For example, with a reward of -0.04 per cell, the optimal policy is
 ```
 →  →  →  ✗
 ↑  ✗  ↑  ✗
