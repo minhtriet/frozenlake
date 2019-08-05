@@ -90,7 +90,7 @@ for i in range(width):
 It would be sensible to make one's convention and to follow it to make it a habit.
 
 ### Initialization
-Weight initialization gets a decent amount of attention (https://papers.nips.cc/paper/7338-how-to-start-training-the-effect-of-initialization-and-architecture.pdf, https://arxiv.org/pdf/1504.00941.pdf, https://twitter.com/ylecun/status/854136432327352320). The most profound effect is that setting the wrong weight can lead to very slow or no learning at all. Luckily, we have a chance to replicate this in shallow learning too. 
+Weight initialization gets a decent amount of attention ([Paper](https://papers.nips.cc/paper/7338-how-to-start-training-the-effect-of-initialization-and-architecture.pdf), [Paper](https://arxiv.org/pdf/1504.00941.pdf), [Tweet](https://twitter.com/ylecun/status/854136432327352320)). The most profound effect is that setting the wrong weight can lead to very slow or no learning at all. Luckily, we have a chance to replicate this in shallow learning too. 
 
 ```
 for i in range(width):
