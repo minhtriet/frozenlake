@@ -1,21 +1,19 @@
 Download sample code first
 
-- Have you heard about ...
-- Quick discussion if needed
-- Problem
-- Solution
-
-
 - States the problem
-   - Stage 1: Find path
+   - Stage 1: Find path. Which algorithm
    - Stage 2: Each move costs
        - Note: Have to find for every position in the grid. How to improve?
+           - Save previous result (X)
    - Stage 3: Robot being side stepping
 - How would you solve the problem
    - Potential answer:
        - Greedily move to the highest value answer
        - Path finding algorithm to move to highest reward
-
+- (X): Value
+- Value of what? State
+- Reward
+- Prob and action to move to different states
 
 # Overlooked details on implementing papers
 And how to prevent them
