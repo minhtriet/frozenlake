@@ -1,75 +1,136 @@
-## Todo
-Add code of stuffs, before and after
+Download sample code first
 
+- States the problem
+   - Stage 1: Find path. Which algorithm
+   - Stage 2: Each move costs
+       - Note: Have to find for every position in the grid. How to improve?
+           - Save previous result (X)
+   - Stage 3: Robot being side stepping
+- How would you solve the problem
+   - Potential answer:
+       - Greedily move to the highest value answer
+       - Path finding algorithm to move to highest reward
+- (X): Value
+- Value of what? State
+- Reward
+- Prob and action to move to different states
+
+# Overlooked details on implementing papers
+And how to prevent them
+
+## About this repo
+Implementation of the grid world problem, Artificial Intelligence: A Modern Approach v3, Chapter 17. This is also similar to the [Frozen Lake challenge](https://gym.openai.com/envs/FrozenLake-v0/), which is widely considered a basic Reinforcement Learning (RL) problem.
+
+The writing cover  things that can be overlooked when one implements not just this algorithm, but also many other papers.
+
+## Motivation
+The motivation of this is two-fold:
+
+1. According to Suttons’s book, there are two classes of RL, one that states and action space can be stored in a table. Another case is that the number of states is innumerable (Number of Go/Dota/Starcraft moves). Solving this would require some approximation/generalization techniques.
+
+While the latter case generates more hype, I find the former case good for education purposes.
+
+2. After having my take of companies, I realize what is done anyway is throwing in data and a generic neural network (NN), I feel like it would be more beneficial to implement and debug some papers from scratch.
+
+
+## Prerequisites
+Know about the basic concept of state, … in RL, I summarise them in the appendix. In this implementation, we use BFS with the Bellman equation for value updating.
+
+Without further ado, I run to the problem and its two evasive pitfalls.
+
+## The problem
+
+Given the grid below. An agent (or robot) can move to 4 direction, N, E, W, S.
+
+|   |   |   | (1)  |
+|---|---|---|------|
+|   | ✗ |   | (-1) |
+| 🤖 |   |   |      |
+   
+
+Each time an agent (🤖) moves to a cell, it would receive a reward from that cell. The (1) and (-1) is the end state, once the agent move to one of those cells, the game is over. `✗` is an obstacle, which bounces the agent back when being hit.
+
+The agent, however, has the probability to sidestep (p=0.1)
+```
+Sidestep (p=0.1)
+↑
+xx ----> Intended direction (p=0.8)
+↓
+Sidestep (p=0.1)
+```
+Task: Find the optimal policy for the agent. For example, with a reward of -0.04 per cell, the optimal policy is
+```
+→  →  →  ✗
+↑  ✗  ↑  ✗
+↑  ←  ↑  ←
+```
+## Solution
+We can use the Bellman equation
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;\sum_{s'}P(s'|s,&space;a)U(s')" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;U(s)&space;=&space;R(s)&space;&plus;&space;\gamma&space;max_{a&space;\in&space;A(s)}&space;\sum_{s'}P(s'|s,&space;a)U(s')" title="U(s) = R(s) + \gamma max_{a \in A(s)} \sum_{s'}P(s'|s, a)U(s')" /></a>
+
+and its extended form: Note that (1, 1) is the bottom left corner
+```
+U(1,1)=−0.04+γ max[ 0.8U(1,2)+0.1U(2,1)+0.1U(1,1),               (Up)
+                    0.9U (1, 1) + 0.1U (1, 2),                   (Down)
+                    0.9U (1, 1) + 0.1U (2, 1),                   (Left)   
+                    0.8U (2, 1) + 0.1U (1, 2) + 0.1U (1, 1) ].   (Right)
+```
+
+## Pitfalls
+### Index matters
+ When accessing a 2D array, the order of index often looks like
+```
+for i in range(rows):
+    for j in range(columns):
+        print(matrix[i][j])
+```
+However,  math convention requires `x` coordinate (corresponds to `width`) comes before `y`, which conflicts with the `(height, width)` convention above. This kind of inconsistent creeps into even mature libraries (Compare https://docs.opencv.org/4.0.0/d3/d63/classcv_1_1Mat.html#a2ec3402f7d165ca34c7fd6e8498a62ca with https://docs.opencv.org/4.0.0/d3/d63/classcv_1_1Mat.html#a75a97b1e4e55f380c172af58048a7cde). 
+
+If `width != height`, in a language like C++, instead of throwing an exception, a random number would be returned, which would lead to unpredictable results.
+
+Solving this may requires altering one's convention
+```
+for i in range(width):
+    for j in range(height):
+        print(states[j][i])  # note the change of index here
+```
+
+It would be sensible to make one's convention and to follow it to make it a habit.
+
+### Initialization
+Weight initialization gets a decent amount of attention ([Paper](https://papers.nips.cc/paper/7338-how-to-start-training-the-effect-of-initialization-and-architecture.pdf), [Paper](https://arxiv.org/pdf/1504.00941.pdf), [Tweet](https://twitter.com/ylecun/status/854136432327352320)). The most profound effect is that setting the wrong weight can lead to very slow or no learning at all. Luckily, we have a chance to replicate this in shallow learning too. 
+
+```
+for i in range(width):
+    for j in range(height):
+        # move logic
+        best_direction = null
+        if best_result > value[i][j]:
+            move_to_best_direction
+```
+
+With a board like this and a reward of 2, the result would never be updated. It is better to stay still than moving anywhere.
+
+|   |   | ✥ | (1)  |
+|---|---|---|------|
+|   |   | ✥ | (-1) |
+
+The correct policy would look like the following table
+
+|   |   | ← | (1)  |
+|---|---|---|------|
+|   |   | ← | (-1) |
+
+This world is so good no one wants to leave
+
+## Appendix
+- _S_: States - Collection of a snapshot of the environment by an agent
+- _U(s)_: Util - A value assigned to each state to show how valuable that state is
+- _R_: Reward - A value that the agent receives when it makes a move
 
 ## To run
 ### Compile
 `./compile.sh`
 ### Run with different files
 `./a.out [input.txt | input2.txt | ... ]`
-
-## About this repo
-Implementation of gridworld problem, Artificial Intelligence: A Modern Approach v3, Chapter 17, Exercise 11.
-
-Reiforcement realing
-
-
-## Motivation
-The motivation of this is two fold:
-
-
-1. Suttons’s bible In RL, there are two cases, one that states and action space can be effectively stored on a table. Another case is that the states 
-
-While reality is the latter case, I find the former case good for education purpose. Not the magical blackbox of Neural Network, mostly non bullshit number.
-
-2. After having my take of some data company and Internet blogs, I realize what is done anyway is throwing in data and a generic neural network (NN), I feel like it is  more beneficial to readers to either imp[lement a paper (and do debugging techniques like gradient check before tuning hyperparameters) 
-or
-2. Do some classical tabular RL method
-
-The premise of RL is around Markov decision process, 
-
-We use BFS with Bellman equation for value update
-
-
-
-Index matters, make your own convention. If you says dimension of an rectangle is iwdth*height, and your index follows the convevntion of x axe before y axe, there is going to be a problem, instead of writing
-
-```
-for i in range(width):
-    for j in range(height):
-        states
-```
-
-Edge case matters
-
-Experiments with different starting point, to see if policy changes
-
-Why the over specific title.
-
-Prerequiste: Know about basic concept of state, … in RL, I summarise them at the appendix
-
-Common trap to falls to
-
-OpenAI frozen lake challenge
-
-If > 
-
-
-However, if run, result would be
-
-
-Book of Sutton called this in 2.6. Overall, it is highly depending on your initial value. As @Programmer says, hours of minutes of reading the manual
-
-
-## Initialize condition
-If one looks at the update condition
-
-
-He might be tempted to write this
-
-if (result > best_result) {
- 71                     best_result = result;
- 72                     best_direction = direction;
- 73                 }
-
-But in reality, code is a problem
